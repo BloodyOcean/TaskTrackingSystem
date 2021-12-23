@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.Repositories
+namespace DAL.Interfaces
 {
     public interface IAssignmentRepository : IRepository<Assignment>
     {
-        IQueryable<Assignment> FindAllWithDetails();
+        IQueryable<Assignment> GetAllWithDetails();
 
         Task<Assignment> GetByIdWithDetailsAsync(int id);
     }

@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.Repositories
+namespace DAL.Interfaces
 {
     public interface IEmployeeRepository : IRepository<Employee>
     {
-        IQueryable<History> GetAllWithDetails();
-        Task<Assignment> GetByIdWithDetailsAsync(int id);
+        IQueryable<Employee> GetAllWithDetails();
+        Task<Employee> GetByIdWithDetailsAsync(int id);
     }
 }

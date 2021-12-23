@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace DAL.Enitites
@@ -14,10 +15,11 @@ namespace DAL.Enitites
         public DateTime CreationDate { get; set; }
         public DateTime ClosureDate { get; set; }
         public bool Status { get; set; } // Open/Closed
-        public int ManagerId { get; set; }
+        public int? ManagerId { get; set; }
 
         // Navigation properties.
         public ICollection<Assignment> Assignments { get; set; }
+        [ForeignKey("ManagerId")]
         public Manager Manager { get; set; }
 
     }

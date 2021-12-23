@@ -14,11 +14,9 @@ namespace DAL.Enitites
         public int? UpdatedBy { get; set; }
         public int? AssignmentId { get; set; }
         public string Comment { get; set; }
-        //public int? AssignmentStatusId { get; set; }
 
         // Navigation properties.
         public Employee Employee { get; set; }
         public Assignment Assignment { get; set; }
-        //public AssignmentStatus AssignmentStatus { get; set; }
     }
 }
