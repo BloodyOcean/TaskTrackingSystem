@@ -16,5 +16,6 @@ namespace DAL.Enitites
         // Navigation properties.
         public ICollection<Assignment> Assignments { get; set; }
         public ICollection<History> Hostories { get; set; }
+        public ICollection<Project> Projects { get; set; }
     }
 }

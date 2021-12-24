@@ -13,6 +13,8 @@ namespace DAL.Interfaces
 
         IHistoryRepository HistoryRepository { get; }
 
+        IProjectRepository ProjectRepository { get; }
+
         Task<int> SaveAsync();
     }
 }

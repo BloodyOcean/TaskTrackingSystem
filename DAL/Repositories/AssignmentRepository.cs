@@ -1,52 +1,72 @@
 ﻿using DAL.Enitites;
+using DAL.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.Interfaces
+namespace DAL.Repositories
 {
     public class AssignmentRepository : IAssignmentRepository
     {
-        public Task AddAsync(Assignment entity)
+        private TaskTrackingDbContext _db;
+        public AssignmentRepository(TaskTrackingDbContext context)
         {
-            throw new NotImplementedException();
+            this._db = context;
+        }
+        public async Task AddAsync(Assignment entity)
+        {
+            await _db.Assignments.AddAsync(entity);
         }
 
         public void Delete(Assignment entity)
         {
-            throw new NotImplementedException();
+            var index = _db.Assignments.Find(entity);
+            if (index != null)
+            {
+                _db.Assignments.Remove(entity);
+            }
         }
 
-        public Task DeleteByIdAsync(int id)
+        public async Task DeleteByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var en = await _db.Assignments.SingleOrDefaultAsync(p => p.Id == id);
+            _db.Assignments.Remove(en);
         }
 
         public IQueryable<Assignment> FindAll()
         {
-            throw new NotImplementedException();
+            return _db.Assignments.AsQueryable();
         }
 
-        public IQueryable<Assignment> FindAllWithDetails()
+        public IQueryable<Assignment> GetAllWithDetails()
         {
-            throw new NotImplementedException();
+            return _db.Assignments.Include(p => p.Employee).Include(p => p.Project);
         }
 
-        public Task<Assignment> GetByIdAsync(int id)
+        public async Task<Assignment> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var sources = await _db.Assignments
+                .Where(x => x.Id == id)
+                .SingleOrDefaultAsync();
+
+            return sources;
         }
 
-        public Task<Assignment> GetByIdWithDetailsAsync(int id)
+        public async Task<Assignment> GetByIdWithDetailsAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _db.Assignments
+                .Include(p => p.Employee)
+                .Include(p => p.Project)
+                .FirstOrDefaultAsync(p => p.Id == id);
         }
 
         public void Update(Assignment entity)
         {
-            throw new NotImplementedException();
+            _db.Assignments.Attach(entity);
+            _db.Entry(entity).State = EntityState.Modified;
         }
     }
 }

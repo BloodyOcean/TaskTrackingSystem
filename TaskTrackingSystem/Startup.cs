@@ -1,4 +1,6 @@
 using DAL;
+using DAL.Interfaces;
+using DAL.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,6 +32,12 @@ namespace TaskTrackingSystem
             string connection = Configuration.GetConnectionString("DefaultConnection");
 
             services.AddDbContext<TaskTrackingDbContext>(options => options.UseSqlServer(connection));
+            services.AddScoped<IAssignmentRepository, AssignmentRepository>();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IHistoryRepository, HistoryRepository>();
+            services.AddScoped<IProjectRepository, ProjectRepository>();
+            services.AddScoped<IAssignmentRepository, AssignmentRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddControllers();
         }
 

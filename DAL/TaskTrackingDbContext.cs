@@ -16,7 +16,6 @@ namespace DAL
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<History> Histories { get; set; }
-        public DbSet<Manager> Managers { get; set; }
         public DbSet<Assignment> Assignments { get; set; }
         public DbSet<AssignmentStatus> AssignmentStatuses { get; set; }
 

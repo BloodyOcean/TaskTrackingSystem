@@ -4,14 +4,16 @@ using DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DAL.Migrations
 {
     [DbContext(typeof(TaskTrackingDbContext))]
-    partial class TaskTrackingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211223211853_init4")]
+    partial class init4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -141,7 +143,7 @@ namespace DAL.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ManagerId")
+                    b.Property<int?>("EmployeeId")
                         .HasColumnType("int");
 
                     b.Property<bool>("Status")
@@ -152,7 +154,7 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ManagerId");
+                    b.HasIndex("EmployeeId");
 
                     b.ToTable("Projects");
                 });
@@ -187,7 +189,7 @@ namespace DAL.Migrations
                 {
                     b.HasOne("DAL.Enitites.Employee", "Employee")
                         .WithMany("Projects")
-                        .HasForeignKey("ManagerId");
+                        .HasForeignKey("EmployeeId");
                 });
 #pragma warning restore 612, 618
         }
