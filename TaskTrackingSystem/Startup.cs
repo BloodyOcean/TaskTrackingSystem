@@ -1,3 +1,6 @@
+using BLL;
+using BLL.Interfaces;
+using BLL.Services;
 using DAL;
 using DAL.Interfaces;
 using DAL.Repositories;
@@ -38,6 +41,9 @@ namespace TaskTrackingSystem
             services.AddScoped<IProjectRepository, ProjectRepository>();
             services.AddScoped<IAssignmentRepository, AssignmentRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddAutoMapper(typeof(AutomapperProfile));
+            services.AddScoped<IProjectService, ProjectService>();
+            services.AddSwaggerGen();
             services.AddControllers();
         }
 
@@ -47,6 +53,9 @@ namespace TaskTrackingSystem
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                app.UseSwagger();
+                app.UseSwaggerUI();
             }
 
             app.UseHttpsRedirection();

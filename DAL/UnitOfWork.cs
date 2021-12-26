@@ -35,7 +35,7 @@ namespace DAL
         public IAssignmentRepository AssignmentRepository => _assignmentRepository ?? throw new ArgumentNullException(nameof(_assignmentRepository));
         public IEmployeeRepository EmployeeRepository => _employeeRepository ?? throw new ArgumentNullException(nameof(_employeeRepository));
         public IHistoryRepository HistoryRepository => _historyRepository ?? throw new ArgumentNullException(nameof(_historyRepository));
-        public IProjectRepository ProjectRepository => _projectRepository ?? throw new ArgumentNullException(nameof(_projectRepository));;
+        public IProjectRepository ProjectRepository => _projectRepository ?? throw new ArgumentNullException(nameof(_projectRepository));
 
         public async Task<int> SaveAsync()
         {
