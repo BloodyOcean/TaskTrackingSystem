@@ -20,6 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TaskTrackingSystem.Helpers;
 
 namespace TaskTrackingSystem
 {
@@ -59,7 +60,12 @@ namespace TaskTrackingSystem
             services.AddScoped<IProjectService, ProjectService>();
             services.AddScoped<IAssignmentService, AssignmentService>();
             services.AddScoped<IEmployeeService, EmployeeService>();
+
+            services.Configure<JwtSettings>(Configuration.GetSection("Jwt"));
+
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IRoleService, RoleService>();
+
 
             services.AddSwaggerGen();
 
