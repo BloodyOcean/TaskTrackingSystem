@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,14 @@ namespace Administration.Account
     public sealed class UserService : IUserService
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+
+        public UserService(UserManager<ApplicationUser> userManager,
+            RoleManager<IdentityRole> roleManager)
+        {
+            _userManager = userManager;
+            _roleManager = roleManager;
+        }
 
         public async Task<ApplicationUser> Logon(Logon logon)
         {

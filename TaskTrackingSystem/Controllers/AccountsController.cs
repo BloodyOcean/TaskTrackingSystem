@@ -48,5 +48,32 @@ namespace TaskTrackingSystem.Controllers
 
             return Ok();
         }
+
+        //GET: /api/getRoles
+        [HttpGet("getRoles")]
+        public async Task<IActionResult> GetRoles()
+        {
+            return Ok(await _userService.GetRoles());
+        }
+
+        //POST: /api/createRole
+        [HttpPost("createRole")]
+        public async Task<IActionResult> CreateRole(CreateRoleModel model)
+        {
+            await _userService.CreateRole(model.RoleName);
+            return Ok();
+        }
+
+        [HttpPost("assignUserToRole")]
+        public async Task<IActionResult> AssignUserToRole(AssignUserToRoleModel model)
+        {
+            await _userService.AssignUserToRoles(new AssignUserToRoles
+            {
+                Email = model.Email,
+                Roles = model.Roles
+            });
+
+            return Ok();
+        }
     }
 }
