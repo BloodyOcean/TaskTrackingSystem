@@ -11,7 +11,7 @@ namespace BLL.Models
         public string Email { get; set; }
         public string Phone { get; set; }
         public ICollection<int> AssignmentIds { get; set; }
-        public ICollection<int> HostoryIds { get; set; }
+        public ICollection<int> HistoryIds { get; set; }
         public ICollection<int> ProjectIds { get; set; }
     }
 }

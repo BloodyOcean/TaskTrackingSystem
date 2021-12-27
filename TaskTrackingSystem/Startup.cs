@@ -1,3 +1,5 @@
+using Administration;
+using Administration.Account;
 using BLL;
 using BLL.Interfaces;
 using BLL.Services;
@@ -7,6 +9,7 @@ using DAL.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -33,17 +36,33 @@ namespace TaskTrackingSystem
         public void ConfigureServices(IServiceCollection services)
         {
             string connection = Configuration.GetConnectionString("DefaultConnection");
+            string administrationConnection = Configuration.GetConnectionString("AdministrationDB");
 
             services.AddDbContext<TaskTrackingDbContext>(options => options.UseSqlServer(connection));
+            services.AddDbContext<AdministrationDbContext>(options => options.UseSqlServer(administrationConnection));
+
             services.AddScoped<IAssignmentRepository, AssignmentRepository>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<IHistoryRepository, HistoryRepository>();
             services.AddScoped<IProjectRepository, ProjectRepository>();
             services.AddScoped<IAssignmentRepository, AssignmentRepository>();
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             services.AddAutoMapper(typeof(AutomapperProfile));
+
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.Password.RequiredLength = 5;
+            }).AddEntityFrameworkStores<AdministrationDbContext>();
+
             services.AddScoped<IProjectService, ProjectService>();
+            services.AddScoped<IAssignmentService, AssignmentService>();
+            services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddScoped<IUserService, UserService>();
+
             services.AddSwaggerGen();
+
             services.AddControllers();
         }
 

@@ -9,8 +9,10 @@ namespace DAL
 {
     public class TaskTrackingDbContext : DbContext
     {
-        public TaskTrackingDbContext(DbContextOptions options) : base(options)
+        public TaskTrackingDbContext(DbContextOptions<TaskTrackingDbContext> options) : base(options)
         {
+            Database.EnsureDeleted();
+            Database.EnsureCreated();
         }
 
         public DbSet<Employee> Employees { get; set; }

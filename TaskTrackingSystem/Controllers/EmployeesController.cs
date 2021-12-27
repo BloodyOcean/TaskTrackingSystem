@@ -39,7 +39,7 @@ namespace TaskTrackingSystem.Controllers
             try
             {
                 await _es.AddAsync(employeeModel);
-                return CreatedAtAction(nameof(Add), employeeModel);
+                return Ok(employeeModel);
             }
             catch (Exception ex)
             {
