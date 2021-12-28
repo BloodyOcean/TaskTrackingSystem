@@ -11,8 +11,8 @@ namespace DAL
     {
         public TaskTrackingDbContext(DbContextOptions<TaskTrackingDbContext> options) : base(options)
         {
-            Database.EnsureDeleted();
-            Database.EnsureCreated();
+            //Database.EnsureDeleted();
+            //Database.EnsureCreated();
         }
 
         public DbSet<Employee> Employees { get; set; }
