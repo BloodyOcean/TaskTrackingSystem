@@ -107,7 +107,7 @@ namespace TaskTrackingSystem.Controllers
                 Roles = model.Roles
             });
 
-            await _mailService.SendEmailAsync("bataricet@gmail.com", "You have new role(s)!", "Congratulations! You have new roles(s)!");
+            await _mailService.SendEmailAsync(model.Email, "You have new role(s)!", "Congratulations! You have new roles(s)!");
 
             return Ok();
         }

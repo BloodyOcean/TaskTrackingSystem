@@ -10,7 +10,7 @@ namespace BLL.Services
         {
             var emailMessage = new MimeMessage();
 
-            emailMessage.From.Add(new MailboxAddress("Administration", "ttm@ttmail.com"));
+            emailMessage.From.Add(new MailboxAddress("Administration", "test@tmail.com"));
             emailMessage.To.Add(new MailboxAddress("", email));
             emailMessage.Subject = subject;
             emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)

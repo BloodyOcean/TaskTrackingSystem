@@ -18,7 +18,7 @@ namespace Administration
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
+            modelBuilder.Entity<ApplicationUser>().Property(p => p.UserId).ValueGeneratedOnAdd();
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Administration.Account
 {
     public sealed class UserService : IUserService
     {
-        private static int _id;
+       
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
@@ -42,11 +42,11 @@ namespace Administration.Account
             {
                 Email = user.Email,
                 UserName = user.Email,
-                Name = user.Name,
-                UserId = _id
+                Name = user.Name
+           
             }, user.Password);
 
-            ++_id;
+
 
             if (!result.Succeeded)
             {
