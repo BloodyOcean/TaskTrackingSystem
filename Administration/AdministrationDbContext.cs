@@ -18,7 +18,10 @@ namespace Administration
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<ApplicationUser>().Property(p => p.UserId).ValueGeneratedOnAdd();
+            modelBuilder.Entity<ApplicationUser>()
+                .Property(e => e.UserId)
+                .ValueGeneratedOnAdd()
+                .Metadata.SetAfterSaveBehavior(Microsoft.EntityFrameworkCore.Metadata.PropertySaveBehavior.Throw);
         }
     }
 }

@@ -8,6 +8,7 @@ namespace Administration
 {
     public class ApplicationUser : IdentityUser
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
         public string Name { get; set; }
     }
