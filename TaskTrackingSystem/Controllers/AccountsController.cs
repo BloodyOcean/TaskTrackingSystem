@@ -78,7 +78,7 @@ namespace TaskTrackingSystem.Controllers
 
         //GET: /api/accounts
         [HttpGet]
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         public IActionResult GetAll()
         {
             return Ok(_userService.GetAll());

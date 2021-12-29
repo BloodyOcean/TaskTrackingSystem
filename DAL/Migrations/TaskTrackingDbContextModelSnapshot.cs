@@ -130,7 +130,7 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Enitites.Assignment", b =>
                 {
                     b.HasOne("DAL.Enitites.AssignmentStatus", "AssignmentStatus")
-                        .WithMany("Assignments")
+                        .WithMany()
                         .HasForeignKey("AssignmentStatusId");
 
                     b.HasOne("DAL.Enitites.Project", "Project")

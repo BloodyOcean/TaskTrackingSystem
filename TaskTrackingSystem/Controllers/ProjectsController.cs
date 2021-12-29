@@ -12,7 +12,7 @@ namespace TaskTrackingSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class ProjectsController : ControllerBase
     {
         private readonly IProjectService _ps;
@@ -43,6 +43,7 @@ namespace TaskTrackingSystem.Controllers
         }
 
         //POST: /api/projects/assignManagerToProject
+        [HttpPost("assignManagerToProject")]
         public async Task<ActionResult<ProjectModel>> AssignManagerToProject([FromBody] AssignManagerToProjectModel model)
         {
             return Ok(await _ps.AssignManagerToProject(model));

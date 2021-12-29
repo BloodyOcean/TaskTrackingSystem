@@ -13,7 +13,6 @@ namespace DAL.Enitites
         public string Status { get; set; }
 
         // Navigation properties.
-        public ICollection<Assignment> Assignments { get; set; }
-        //public ICollection<History> Histories { get; set; }
+        //public ICollection<Assignment> Assignments { get; set; }
     }
 }

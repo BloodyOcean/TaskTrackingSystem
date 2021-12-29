@@ -19,8 +19,6 @@ namespace DAL.Enitites
 
         // Navigation properties.
         public ICollection<Assignment> Assignments { get; set; }
-        /*[ForeignKey("ManagerId")]
-        public Employee Employee { get; set; }*/
 
     }
 }

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(TaskTrackingDbContext))]
-    [Migration("20211228212510_updateddb1")]
-    partial class updateddb1
+    [Migration("20211229142431_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -132,7 +132,7 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Enitites.Assignment", b =>
                 {
                     b.HasOne("DAL.Enitites.AssignmentStatus", "AssignmentStatus")
-                        .WithMany("Assignments")
+                        .WithMany()
                         .HasForeignKey("AssignmentStatusId");
 
                     b.HasOne("DAL.Enitites.Project", "Project")

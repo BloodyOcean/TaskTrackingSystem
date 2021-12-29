@@ -16,7 +16,6 @@ namespace DAL.Enitites
         public string Comment { get; set; }
 
         // Navigation properties.
-        /*public Employee Employee { get; set; }*/
         public Assignment Assignment { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace TaskTrackingSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class AssignmentsController : ControllerBase
     {
         private readonly IAssignmentService _as;
