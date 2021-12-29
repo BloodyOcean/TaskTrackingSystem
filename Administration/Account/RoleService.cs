@@ -22,10 +22,13 @@ namespace Administration.Account
         public async Task AssignUserToRoles(AssignUserToRoles assignUserToRoles)
         {
             var user = _userManager.Users.SingleOrDefault(u => u.UserName == assignUserToRoles.Email);
-            var roles = _roleManager.Roles.ToList().Where(r => assignUserToRoles.Roles.Contains(r.Name, StringComparer.OrdinalIgnoreCase))
+            var roles = _roleManager.Roles
+                .ToList()
+                .Where(r => assignUserToRoles.Roles.Contains(r.Name, StringComparer.OrdinalIgnoreCase))
                 .Select(r => r.NormalizedName).ToList();
 
             var result = await _userManager.AddToRolesAsync(user, roles); // THROWS
+            //var result = await _userManager.AddToRolesAsync(user, new List<string> { "admin" });
 
             if (!result.Succeeded)
             {
@@ -40,6 +43,15 @@ namespace Administration.Account
             if (!result.Succeeded)
             {
                 throw new System.Exception($"Role could not be created: {roleName}.");
+            }
+        }
+
+        public async Task DeleteRole(string name)
+        {
+            var res = await _roleManager.FindByNameAsync(name);
+            if (res != null)
+            {
+                await _roleManager.DeleteAsync(res);
             }
         }
 

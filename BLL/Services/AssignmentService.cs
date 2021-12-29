@@ -5,6 +5,7 @@ using DAL.Enitites;
 using DAL.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -35,8 +36,13 @@ namespace BLL.Services
 
         public IEnumerable<AssignmentModel> GetAll()
         {
-            var res = _mapper.Map<IEnumerable<AssignmentModel>>(_uow.ProjectRepository.FindAll());
+            var res = _mapper.Map<IEnumerable<AssignmentModel>>(_uow.AssignmentRepository.FindAll());
             return res;
+        }
+
+        public IEnumerable<AssignmentModel> GetAssignmentsByEmployee(int id)
+        {
+            return _mapper.Map<IEnumerable<AssignmentModel>>(_uow.AssignmentRepository.FindAll().Where(p => p.EmployeeId == id).ToList());
         }
 
         public async Task<AssignmentModel> GetByIdAsync(int id)

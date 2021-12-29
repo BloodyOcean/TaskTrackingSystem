@@ -16,11 +16,11 @@ namespace BLL
                 .ForMember(p => p.HistoryIds, c => c.MapFrom(t => t.Histories.Select(x => x.Id)))
                 .ReverseMap();
 
-            CreateMap<Employee, EmployeeModel>()
+            /*CreateMap<Employee, EmployeeModel>()
                 .ForMember(p => p.HistoryIds, c => c.MapFrom(t => t.Hostories.Select(x => x.Id)))
                 .ForMember(p => p.ProjectIds, c => c.MapFrom(t => t.Projects.Select(x => x.Id)))
                 .ForMember(p => p.AssignmentIds, c => c.MapFrom(t => t.Assignments.Select(x => x.Id)))
-                .ReverseMap();
+                .ReverseMap();*/
 
             CreateMap<Project, ProjectModel>()
                 .ForMember(p => p.AssignmentIds, c => c.MapFrom(t => t.Assignments.Select(x => x.Id)))

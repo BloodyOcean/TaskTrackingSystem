@@ -12,7 +12,6 @@ namespace DAL
 
         private readonly IAssignmentRepository _assignmentRepository; 
 
-        public readonly IEmployeeRepository _employeeRepository; 
 
         public readonly IHistoryRepository _historyRepository; 
 
@@ -20,12 +19,10 @@ namespace DAL
 
         public UnitOfWork(TaskTrackingDbContext context,
             IAssignmentRepository assignmentRepository,
-            IEmployeeRepository employeeRepository,
             IHistoryRepository historyRepository,
             IProjectRepository projectRepository)
         {
             _assignmentRepository = assignmentRepository;
-            _employeeRepository = employeeRepository;
             _historyRepository = historyRepository;
             _projectRepository = projectRepository;
 
@@ -33,7 +30,6 @@ namespace DAL
         }
 
         public IAssignmentRepository AssignmentRepository => _assignmentRepository ?? throw new ArgumentNullException(nameof(_assignmentRepository));
-        public IEmployeeRepository EmployeeRepository => _employeeRepository ?? throw new ArgumentNullException(nameof(_employeeRepository));
         public IHistoryRepository HistoryRepository => _historyRepository ?? throw new ArgumentNullException(nameof(_historyRepository));
         public IProjectRepository ProjectRepository => _projectRepository ?? throw new ArgumentNullException(nameof(_projectRepository));
 

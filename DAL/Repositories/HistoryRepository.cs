@@ -43,9 +43,11 @@ namespace DAL.Repositories
 
         public IQueryable<History> GetAllWithDetails()
         {
-            return _db.Histories
+            /*return _db.Histories
                 .Include(p => p.Assignment)
-                .Include(p => p.Employee);
+                .Include(p => p.Employee);*/
+
+            return _db.Histories.Include(p => p.Assignment);
         }
 
         public async Task<History> GetByIdAsync(int id)

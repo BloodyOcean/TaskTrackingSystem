@@ -12,17 +12,12 @@ namespace Administration
         public AdministrationDbContext(DbContextOptions<AdministrationDbContext> options) 
             : base(options)
         {
-            //Database.EnsureDeleted();
-            //Database.EnsureCreated();
+            /*Database.EnsureDeleted();
+            Database.EnsureCreated();*/
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<IdentityRole>().HasData(
-                new IdentityRole("user"),
-                new IdentityRole("manager"),
-                new IdentityRole("admin")
-            );
 
         }
     }

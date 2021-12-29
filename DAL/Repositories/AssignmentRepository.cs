@@ -43,7 +43,8 @@ namespace DAL.Repositories
 
         public IQueryable<Assignment> GetAllWithDetails()
         {
-            return _db.Assignments.Include(p => p.Employee).Include(p => p.Project);
+            //return _db.Assignments.Include(p => p.Employee).Include(p => p.Project);
+            return _db.Assignments.Include(p => p.Project);
         }
 
         public async Task<Assignment> GetByIdAsync(int id)
@@ -57,8 +58,12 @@ namespace DAL.Repositories
 
         public async Task<Assignment> GetByIdWithDetailsAsync(int id)
         {
-            return await _db.Assignments
+            /*return await _db.Assignments
                 .Include(p => p.Employee)
+                .Include(p => p.Project)
+                .FirstOrDefaultAsync(p => p.Id == id);*/
+
+            return await _db.Assignments
                 .Include(p => p.Project)
                 .FirstOrDefaultAsync(p => p.Id == id);
         }

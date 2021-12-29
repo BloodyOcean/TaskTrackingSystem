@@ -12,7 +12,7 @@ namespace TaskTrackingSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class AssignmentsController : ControllerBase
     {
         private readonly IAssignmentService _as;
@@ -26,6 +26,13 @@ namespace TaskTrackingSystem.Controllers
         public ActionResult<IEnumerable<AssignmentModel>> GetAll()
         {
             return Ok(_as.GetAll());
+        }
+
+        //GET: /api/assignments/id
+        [HttpGet("{id}")]
+        public ActionResult<IEnumerable<AssignmentModel>> GetAssignmentsByEmployeeId(int id)
+        {
+            return Ok(_as.GetAssignmentsByEmployee(id));
         }
 
         //POST: /api/assignments

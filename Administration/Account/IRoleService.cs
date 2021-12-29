@@ -12,5 +12,6 @@ namespace Administration.Account
         Task CreateRole(string roleName);
         Task<IEnumerable<string>> GetRoles(ApplicationUser user);
         Task<IEnumerable<IdentityRole>> GetRoles();
+        Task DeleteRole(string name);
     }
 }

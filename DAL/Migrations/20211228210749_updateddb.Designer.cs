@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(TaskTrackingDbContext))]
-    [Migration("20211223211853_init4")]
-    partial class init4
+    [Migration("20211228210749_updateddb")]
+    partial class updateddb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,8 +53,6 @@ namespace DAL.Migrations
 
                     b.HasIndex("AssignmentStatusId");
 
-                    b.HasIndex("EmployeeId");
-
                     b.HasIndex("ProjectID");
 
                     b.ToTable("Assignments");
@@ -75,27 +73,6 @@ namespace DAL.Migrations
                     b.ToTable("AssignmentStatuses");
                 });
 
-            modelBuilder.Entity("DAL.Enitites.Employee", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Employees");
-                });
-
             modelBuilder.Entity("DAL.Enitites.History", b =>
                 {
                     b.Property<int>("Id")
@@ -112,17 +89,12 @@ namespace DAL.Migrations
                     b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("EmployeeId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AssignmentId");
-
-                    b.HasIndex("EmployeeId");
 
                     b.ToTable("Histories");
                 });
@@ -143,7 +115,7 @@ namespace DAL.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("EmployeeId")
+                    b.Property<int?>("ManagerId")
                         .HasColumnType("int");
 
                     b.Property<bool>("Status")
@@ -154,8 +126,6 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EmployeeId");
-
                     b.ToTable("Projects");
                 });
 
@@ -164,10 +134,6 @@ namespace DAL.Migrations
                     b.HasOne("DAL.Enitites.AssignmentStatus", "AssignmentStatus")
                         .WithMany("Assignments")
                         .HasForeignKey("AssignmentStatusId");
-
-                    b.HasOne("DAL.Enitites.Employee", "Employee")
-                        .WithMany("Assignments")
-                        .HasForeignKey("EmployeeId");
 
                     b.HasOne("DAL.Enitites.Project", "Project")
                         .WithMany("Assignments")
@@ -179,17 +145,6 @@ namespace DAL.Migrations
                     b.HasOne("DAL.Enitites.Assignment", "Assignment")
                         .WithMany("Histories")
                         .HasForeignKey("AssignmentId");
-
-                    b.HasOne("DAL.Enitites.Employee", "Employee")
-                        .WithMany("Hostories")
-                        .HasForeignKey("EmployeeId");
-                });
-
-            modelBuilder.Entity("DAL.Enitites.Project", b =>
-                {
-                    b.HasOne("DAL.Enitites.Employee", "Employee")
-                        .WithMany("Projects")
-                        .HasForeignKey("EmployeeId");
                 });
 #pragma warning restore 612, 618
         }

@@ -10,6 +10,7 @@ namespace Administration.Account
 {
     public sealed class UserService : IUserService
     {
+        private static int _id;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
@@ -18,6 +19,11 @@ namespace Administration.Account
         {
             _userManager = userManager;
             _roleManager = roleManager;
+        }
+
+        public IEnumerable<ApplicationUser> GetAll()
+        {
+            return _userManager.Users;
         }
 
         public async Task<ApplicationUser> Logon(Logon logon)
@@ -30,12 +36,17 @@ namespace Administration.Account
 
         public async Task Register(Register user)
         {
+
+
             var result = await _userManager.CreateAsync(new ApplicationUser
             {
                 Email = user.Email,
                 UserName = user.Email,
-                Name = user.Name
+                Name = user.Name,
+                UserId = _id
             }, user.Password);
+
+            ++_id;
 
             if (!result.Succeeded)
             {

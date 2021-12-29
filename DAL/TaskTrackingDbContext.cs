@@ -11,11 +11,10 @@ namespace DAL
     {
         public TaskTrackingDbContext(DbContextOptions<TaskTrackingDbContext> options) : base(options)
         {
-            //Database.EnsureDeleted();
-            //Database.EnsureCreated();
+            /*Database.EnsureDeleted();
+            Database.EnsureCreated();*/
         }
 
-        public DbSet<Employee> Employees { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<History> Histories { get; set; }
         public DbSet<Assignment> Assignments { get; set; }
@@ -23,6 +22,7 @@ namespace DAL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
 
         }
     }

@@ -28,6 +28,16 @@ namespace BLL.Services
             await _uow.SaveAsync();
         }
 
+        public async Task<ProjectModel> AssignManagerToProject(AssignManagerToProjectModel model)
+        {
+            var res = await _uow.ProjectRepository.GetByIdAsync(model.ProjectId);
+            res.ManagerId = model.ManagerId;
+            _uow.ProjectRepository.Update(res);
+            await _uow.SaveAsync();
+
+            return _mapper.Map<ProjectModel>(res);
+        }
+
         public async Task DeleteByIdAsync(int modelId)
         {
             await _uow.ProjectRepository.DeleteByIdAsync(modelId);

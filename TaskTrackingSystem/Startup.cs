@@ -49,7 +49,6 @@ namespace TaskTrackingSystem
             services.AddDbContext<AdministrationDbContext>(options => options.UseSqlServer(administrationConnection));
 
             services.AddScoped<IAssignmentRepository, AssignmentRepository>();
-            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<IHistoryRepository, HistoryRepository>();
             services.AddScoped<IProjectRepository, ProjectRepository>();
             services.AddScoped<IAssignmentRepository, AssignmentRepository>();
@@ -65,7 +64,6 @@ namespace TaskTrackingSystem
 
             services.AddScoped<IProjectService, ProjectService>();
             services.AddScoped<IAssignmentService, AssignmentService>();
-            services.AddScoped<IEmployeeService, EmployeeService>();
 
             services.Configure<JwtSettings>(Configuration.GetSection("Jwt"));
             var jwtSettings = Configuration.GetSection("Jwt").Get<JwtSettings>();
@@ -122,6 +120,7 @@ namespace TaskTrackingSystem
             //        };
             //    c.AddSecurityRequirement(security);
             //});
+
             services.AddSwaggerGen(setup =>
             {
                 // Include 'SecurityScheme' to use JWT Authentication

@@ -30,7 +30,7 @@ namespace TaskTrackingSystem.Controllers
             _jwtSettings = jwtSettings.Value;
         }
 
-        //POST: /api/register
+        //POST: /api/accounts/register
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterModel model)
         {
@@ -44,7 +44,7 @@ namespace TaskTrackingSystem.Controllers
             return Created(string.Empty, string.Empty);
         }
 
-        //POST: /api/logon
+        //POST: /api/accounts/logon
         [HttpPost("logon")]
         public async Task<IActionResult> Logon(LogonModel model)
         {
@@ -61,14 +61,14 @@ namespace TaskTrackingSystem.Controllers
             return Ok(JwtHelper.GenerateJwt(user, roles, _jwtSettings));
         }
 
-        //GET: /api/getRoles
+        //GET: /api/accounts/getRoles
         [HttpGet("getRoles")]
         public async Task<IActionResult> GetRoles()
         {
             return Ok(await _roleService.GetRoles());
         }
 
-        //POST: /api/createRole
+        //POST: /api/accounts/createRole
         [HttpPost("createRole")]
         public async Task<IActionResult> CreateRole(CreateRoleModel model)
         {
@@ -76,6 +76,24 @@ namespace TaskTrackingSystem.Controllers
             return Ok();
         }
 
+        //GET: /api/accounts
+        [HttpGet]
+        [Authorize(Roles = "admin")]
+        public IActionResult GetAll()
+        {
+            return Ok(_userService.GetAll());
+        }
+
+        [HttpDelete("roles")]
+        //DELETE: /api/accounts/roles
+        public async Task<IActionResult> RemoveRole(string name)
+        {
+            await _roleService.DeleteRole(name);
+            return Ok();
+        }
+
+
+        //POST: /api/accounts/assignUserToRole
         [HttpPost("assignUserToRole")]
         public async Task<IActionResult> AssignUserToRole(AssignUserToRoleModel model)
         {

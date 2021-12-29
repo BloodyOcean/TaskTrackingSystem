@@ -9,7 +9,7 @@ namespace DAL.Interfaces
     {
         IAssignmentRepository AssignmentRepository { get; }
 
-        IEmployeeRepository EmployeeRepository { get; }
+       /* IEmployeeRepository EmployeeRepository { get; }*/
 
         IHistoryRepository HistoryRepository { get; }
 

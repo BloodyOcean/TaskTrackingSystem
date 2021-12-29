@@ -20,7 +20,7 @@ namespace DAL.Enitites
 
         // Navigation properties.
         public Project Project { get; set; }
-        public Employee Employee { get; set; }
+        /*public Employee Employee { get; set; }*/
         public ICollection<History> Histories { get; set; }
         public AssignmentStatus AssignmentStatus { get; set; }
     }

@@ -10,5 +10,6 @@ namespace Administration.Account
     {
         Task Register(Register user);
         Task<ApplicationUser> Logon(Logon logon);
+        IEnumerable<ApplicationUser> GetAll();
     }
 }
