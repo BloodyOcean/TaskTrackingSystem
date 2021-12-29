@@ -38,7 +38,8 @@ namespace DAL.Repositories
 
         public IQueryable<Project> FindAll()
         {
-            return _db.Projects.AsQueryable();
+            var res = _db.Projects.AsQueryable();
+            return res;
         }
 
         public IQueryable<Project> GetAllWithDetails()

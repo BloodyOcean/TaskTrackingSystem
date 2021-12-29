@@ -16,6 +16,6 @@ namespace DAL.Enitites
         public string Comment { get; set; }
 
         // Navigation properties.
-        public Assignment Assignment { get; set; }
+        public virtual Assignment Assignment { get; set; }
     }
 }

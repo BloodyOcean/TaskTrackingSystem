@@ -19,8 +19,8 @@ namespace DAL.Enitites
         public int? EmployeeId { get; set; }
 
         // Navigation properties.
-        public Project Project { get; set; }
-        public ICollection<History> Histories { get; set; }
-        public AssignmentStatus AssignmentStatus { get; set; }
+        public virtual Project Project { get; set; }
+        public virtual ICollection<History> Histories { get; set; }
+        public virtual AssignmentStatus AssignmentStatus { get; set; }
     }
 }

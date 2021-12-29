@@ -18,7 +18,7 @@ namespace DAL.Enitites
         public int? ManagerId { get; set; }
 
         // Navigation properties.
-        public ICollection<Assignment> Assignments { get; set; }
+        public virtual ICollection<Assignment> Assignments { get; set; } 
 
     }
 }

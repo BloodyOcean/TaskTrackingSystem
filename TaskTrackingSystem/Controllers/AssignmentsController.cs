@@ -28,8 +28,27 @@ namespace TaskTrackingSystem.Controllers
             return Ok(_as.GetAll());
         }
 
-        //GET: /api/assignments/id
-        [HttpGet("{id}")]
+        //PUT: /api/assignments
+        [HttpPut]
+        public async Task<ActionResult> Update(AssignmentModel assignmentModel)
+        {
+            if (assignmentModel == null)
+            {
+                return BadRequest();
+            }
+            try
+            {
+                await _as.UpdateAsync(assignmentModel);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        //GET: /api/assignments/employee
+        [HttpGet("Employee/{id}")]
         public ActionResult<IEnumerable<AssignmentModel>> GetAssignmentsByEmployeeId(int id)
         {
             return Ok(_as.GetAssignmentsByEmployee(id));

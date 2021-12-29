@@ -1,4 +1,5 @@
 ﻿using Administration.Account;
+using BLL.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,15 +20,18 @@ namespace TaskTrackingSystem.Controllers
         private readonly IUserService _userService;
         private readonly IRoleService _roleService;
         private readonly JwtSettings _jwtSettings;
+        private readonly IEmailService _mailService;
 
         public AccountsController(
             IUserService userService,
             IRoleService roleService,
-            IOptionsSnapshot<JwtSettings> jwtSettings)
+            IOptionsSnapshot<JwtSettings> jwtSettings,
+            IEmailService emailService)
         {
             _roleService = roleService;
             _userService = userService;
             _jwtSettings = jwtSettings.Value;
+            _mailService = emailService;
         }
 
         //POST: /api/accounts/register
@@ -102,6 +106,8 @@ namespace TaskTrackingSystem.Controllers
                 Email = model.Email,
                 Roles = model.Roles
             });
+
+            await _mailService.SendEmailAsync("bataricet@gmail.com", "You have new role(s)!", "Congratulations! You have new roles(s)!");
 
             return Ok();
         }

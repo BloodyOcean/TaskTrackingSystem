@@ -46,7 +46,7 @@ namespace BLL.Services
 
         public IEnumerable<ProjectModel> GetAll()
         {
-            var res = _mapper.Map<IEnumerable<ProjectModel>>(_uow.ProjectRepository.FindAll());
+            var res = _mapper.Map<IEnumerable<ProjectModel>>(_uow.ProjectRepository.GetAllWithDetails());
             return res;
         }
 

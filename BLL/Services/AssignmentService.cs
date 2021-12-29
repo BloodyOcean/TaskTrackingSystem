@@ -36,13 +36,13 @@ namespace BLL.Services
 
         public IEnumerable<AssignmentModel> GetAll()
         {
-            var res = _mapper.Map<IEnumerable<AssignmentModel>>(_uow.AssignmentRepository.FindAll());
+            var res = _mapper.Map<IEnumerable<AssignmentModel>>(_uow.AssignmentRepository.GetAllWithDetails());
             return res;
         }
 
         public IEnumerable<AssignmentModel> GetAssignmentsByEmployee(int id)
         {
-            return _mapper.Map<IEnumerable<AssignmentModel>>(_uow.AssignmentRepository.FindAll().Where(p => p.EmployeeId == id).ToList());
+            return _mapper.Map<IEnumerable<AssignmentModel>>(_uow.AssignmentRepository.GetAllWithDetails().Where(p => p.EmployeeId == id).ToList());
         }
 
         public async Task<AssignmentModel> GetByIdAsync(int id)

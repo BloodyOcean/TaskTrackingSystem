@@ -64,6 +64,9 @@ namespace TaskTrackingSystem
 
             services.AddScoped<IProjectService, ProjectService>();
             services.AddScoped<IAssignmentService, AssignmentService>();
+            services.AddScoped<IStatisticService, StatisticService>();
+
+            services.AddScoped<IEmailService, EmailService>();
 
             services.Configure<JwtSettings>(Configuration.GetSection("Jwt"));
             var jwtSettings = Configuration.GetSection("Jwt").Get<JwtSettings>();
