@@ -36,7 +36,7 @@ namespace TaskTrackingSystem.Controllers
 
         //POST: /api/accounts/register
         [HttpPost("register")]
-        public async Task<IActionResult> Register(RegisterModel model)
+        public async Task<IActionResult> Register([FromBody]RegisterModel model)
         {
             await _userService.Register(new Register
             {

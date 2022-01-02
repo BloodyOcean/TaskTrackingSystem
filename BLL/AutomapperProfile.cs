@@ -20,6 +20,9 @@ namespace BLL
             CreateMap<Project, ProjectModel>()
                 .ForMember(p => p.AssignmentIds, c => c.MapFrom(t => t.Assignments.Select(x => x.Id)))
                 .ReverseMap();
+
+            CreateMap<History, HistoryModel>()
+                .ReverseMap();
         }
     }
 }

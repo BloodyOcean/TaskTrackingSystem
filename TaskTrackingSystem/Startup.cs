@@ -19,6 +19,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -60,11 +61,16 @@ namespace TaskTrackingSystem
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
                 options.Password.RequiredLength = 5;
+                options.Password.RequireDigit = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
             }).AddEntityFrameworkStores<AdministrationDbContext>();
 
             services.AddScoped<IProjectService, ProjectService>();
             services.AddScoped<IAssignmentService, AssignmentService>();
             services.AddScoped<IStatisticService, StatisticService>();
+            services.AddScoped<IHistoryService, HistoryService>();
 
             services.AddScoped<IEmailService, EmailService>();
 
@@ -96,33 +102,14 @@ namespace TaskTrackingSystem
 
             services.AddControllers();
 
-            //services.AddSwaggerGen(c =>
-            //{
-            //    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-            //    {
-            //        Description = "JWT containing userid claim",
-            //        Name = "Authorization",
-            //        In = ParameterLocation.Header,
-            //        Type = SecuritySchemeType.ApiKey,
-            //    });
-            //    var security =
-            //        new OpenApiSecurityRequirement
-            //        {
-            //            {
-            //                new OpenApiSecurityScheme
-            //                {
-            //                    Reference = new OpenApiReference
-            //                    {
-            //                        Id = "Bearer",
-            //                        Type = ReferenceType.SecurityScheme
-            //                    },
-            //                    UnresolvedReference = true
-            //                },
-            //                new List<string>()
-            //            }
-            //        };
-            //    c.AddSecurityRequirement(security);
-            //});
+            // Enable CORS.
+            services.AddCors();
+
+            // Enable Json Serializer.
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(o => o.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
+                .AddNewtonsoftJson(o => o.SerializerSettings.ContractResolver = new DefaultContractResolver());
+
 
             services.AddSwaggerGen(setup =>
             {
@@ -157,6 +144,7 @@ namespace TaskTrackingSystem
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -164,6 +152,12 @@ namespace TaskTrackingSystem
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseCors(builder =>
+                builder.WithOrigins("http://localhost:4200")
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                );
 
             app.UseHttpsRedirection();
 

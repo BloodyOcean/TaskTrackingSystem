@@ -28,6 +28,14 @@ namespace TaskTrackingSystem.Controllers
             return Ok(_as.GetAll());
         }
 
+        //DELETE: /api/assignments
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            await _as.DeleteByIdAsync(id);
+            return Ok();
+        }
+
         //PUT: /api/assignments
         [HttpPut]
         public async Task<ActionResult> Update(AssignmentModel assignmentModel)

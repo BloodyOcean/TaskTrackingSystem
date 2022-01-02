@@ -29,21 +29,8 @@ namespace TaskTrackingSystem.Controllers
             return Ok(_ps.GetAll());
         }
 
-        //DELETE: /api/projects
-        [HttpDelete]
-        public async Task<ActionResult> RemoveProject(int? id)
-        {
-            if (id == null)
-            {
-                return Ok();
-            }
-
-            await _ps.DeleteByIdAsync((int)id);
-            return Ok();
-        }
-
-        //POST: /api/projects/assignManagerToProject
-        [HttpPost("assignManagerToProject")]
+        //POST: /api/projects/manager
+        [HttpPost("manager")]
         public async Task<ActionResult<ProjectModel>> AssignManagerToProject([FromBody] AssignManagerToProjectModel model)
         {
             return Ok(await _ps.AssignManagerToProject(model));
