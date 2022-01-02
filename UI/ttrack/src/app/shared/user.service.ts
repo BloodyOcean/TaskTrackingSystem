@@ -35,4 +35,8 @@ export class UserService {
     
     return this.http.post(this.BaseURI + '/accounts/register', body);
   }
+
+  login(formData) {
+    return this.http.post(this.BaseURI + '/accounts/logon', formData, {responseType: 'text'});
+  }
 }

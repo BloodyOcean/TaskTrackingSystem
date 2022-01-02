@@ -29,14 +29,16 @@ namespace Administration.Account
         public async Task<ApplicationUser> Logon(Logon logon)
         {
             var user = _userManager.Users.SingleOrDefault(u => u.UserName == logon.Email);
-            if (user is null) throw new System.Exception($"User not found: '{logon.Email}'.");
+            if (user is null)
+            {
+                throw new System.Exception($"User not found: '{logon.Email}'.");
+            }
 
             return await _userManager.CheckPasswordAsync(user, logon.Password) ? user : null;
         }
 
         public async Task Register(Register user)
         {
-
 
             var result = await _userManager.CreateAsync(new ApplicationUser
             {

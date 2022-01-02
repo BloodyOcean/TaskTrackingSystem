@@ -17,6 +17,9 @@ import { RegistrationComponent } from './user/registration/registration.componen
 import { UserService } from './shared/user.service';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoginComponent } from './user/login/login.component';
+import { FormsModule } from '@angular/forms';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ShowAssComponent,
     AddEditAssComponent,
     UserComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +43,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     ToastrModule.forRoot({
       progressBar: true
-    })
+    }),
+    FormsModule
   ],
   providers: [UserService],
   bootstrap: [AppComponent]
