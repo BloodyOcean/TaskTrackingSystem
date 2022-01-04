@@ -1,7 +1,9 @@
-﻿using BLL.Interfaces;
+﻿using Administration.Account;
+using BLL.Interfaces;
 using BLL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -16,8 +18,10 @@ namespace TaskTrackingSystem.Controllers
     public class AssignmentsController : ControllerBase
     {
         private readonly IAssignmentService _as;
-        public AssignmentsController(IAssignmentService assignmentService)
+        private readonly IUserService _userService;
+        public AssignmentsController(IAssignmentService assignmentService, IUserService userService)
         {
+            this._userService = userService;
             this._as = assignmentService;
         }
 
@@ -56,9 +60,10 @@ namespace TaskTrackingSystem.Controllers
         }
 
         //GET: /api/assignments/employee
-        [HttpGet("Employee/{id}")]
-        public ActionResult<IEnumerable<AssignmentModel>> GetAssignmentsByEmployeeId(int id)
+        [HttpGet("Employee")]
+        public async Task<ActionResult<IEnumerable<AssignmentModel>>> GetAssignmentsByEmployeeId()
         {
+            var id = await _userService.GetCurrentUserIdAsync(User);
             return Ok(_as.GetAssignmentsByEmployee(id));
         }
 

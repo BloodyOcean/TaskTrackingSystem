@@ -31,7 +31,6 @@ export class UserService {
       Password: this.formModel.value.Passwords.Password,
       PasswordConfirm: this.formModel.value.Passwords.PasswordConfirm
     };
-
     
     return this.http.post(this.BaseURI + '/accounts/register', body);
   }

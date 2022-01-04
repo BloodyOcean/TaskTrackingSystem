@@ -57,8 +57,14 @@ namespace TaskTrackingSystem.Controllers
                 Email = model.Email,
                 Password = model.Password
             });
+        
 
             if (user is null) return BadRequest();
+
+            // Save UserId to session.
+            HttpContext.Session.SetInt32("id", 228);
+
+            Console.WriteLine(HttpContext.Session.GetInt32("id"));
 
             var roles = await _roleService.GetRoles(user);
 

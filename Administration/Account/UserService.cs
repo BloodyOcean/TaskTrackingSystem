@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,6 +27,12 @@ namespace Administration.Account
             return _userManager.Users;
         }
 
+        public async Task<int> GetCurrentUserIdAsync(ClaimsPrincipal currentUser)
+        {
+            var u = await _userManager.GetUserAsync(currentUser); // Get user id:
+            return u.UserId;
+        }
+
         public async Task<ApplicationUser> Logon(Logon logon)
         {
             var user = _userManager.Users.SingleOrDefault(u => u.UserName == logon.Email);
@@ -45,10 +52,8 @@ namespace Administration.Account
                 Email = user.Email,
                 UserName = user.Email,
                 Name = user.Name
-           
+
             }, user.Password);
-
-
 
             if (!result.Succeeded)
             {

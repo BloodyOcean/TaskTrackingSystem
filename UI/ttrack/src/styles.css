@@ -7,7 +7,7 @@ button[type=submit].btn{
 }
 
 div.form-group label{
-    color: black;
+    color: rgb(212, 211, 211);
     font-weight: bold;
 }
 
@@ -45,6 +45,11 @@ div.side-header{
   .tab-header h2.active {
     color: #fff;
     border-bottom: 4px solid #fff;
+  }
+
+  .navbar {
+    padding-left: 20px;
+    padding-right: 20px;
   }
 
   .tab-header h2 {

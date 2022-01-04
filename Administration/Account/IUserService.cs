@@ -11,5 +11,6 @@ namespace Administration.Account
         Task Register(Register user);
         Task<ApplicationUser> Logon(Logon logon);
         IEnumerable<ApplicationUser> GetAll();
+        Task<int> GetCurrentUserIdAsync(System.Security.Claims.ClaimsPrincipal currentUser);
     }
 }

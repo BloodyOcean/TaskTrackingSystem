@@ -13,6 +13,7 @@ export class RegistrationComponent implements OnInit {
   constructor(public service:UserService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
+
     this.service.formModel.reset();
   }
 

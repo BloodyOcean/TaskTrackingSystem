@@ -23,6 +23,7 @@ namespace TaskTrackingSystem.Controllers
         [HttpGet("{id}")]
         public ActionResult<IEnumerable<HistoryModel>> GetByEmployeeId(int id)
         {
+            
             return Ok(_hs.GetAllByEmployeeId(id));
         }
 
