@@ -1,1 +1,44 @@
-<p>show-proj works!</p>
+<button type="button" class="btn btn-primary float-right m-2" data-toggle="modal" data-target="#exampleModal" (click)="addClick()">
+    Add project
+</button>
+  
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{ModalTitle}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeClick()"> 
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-add-edit-proj [proj]="proj" *ngIf="ActivateAddEditProjComp"></app-add-edit-proj>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>CreationDate</th>
+            <th>ClosureDate</th>
+            <th>Status</th>
+            <th>Options</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let dataItem of ProjectList">
+            <td>{{dataItem.Title}}</td>
+            <td>{{dataItem.Description}}</td>
+            <td>{{dataItem.CreationDate}}</td>
+            <td>{{dataItem.ClosureDate}}</td>
+            <td>{{dataItem.Status}}</td>
+            <div>
+                <button class="m-1 btn btn-light btn-outline-primary" Button data-toggle="modal" data-target="#exampleModal" (click)="editClick(dataItem)">Edit</button>
+            </div>
+        </tr>
+    </tbody>
+</table>

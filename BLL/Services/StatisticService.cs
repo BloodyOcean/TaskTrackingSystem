@@ -38,5 +38,25 @@ namespace BLL.Services
 
             return res;
         }
+
+        public IEnumerable<CompletionPercentage> GetCompletionPercentagesByManager(int id)
+        {
+            var res = _uow.ProjectRepository.GetAllWithDetails()
+                .Where(p => p.ManagerId == id)
+                .Select(p => new
+                {
+                    Project_id = p.Id,
+                    Ended_count = p.Assignments.Where(l => l.AssignmentStatus.Status == "New").Count(),
+                    Whole_count = p.Assignments.Count()
+                })
+                .Select(p => new CompletionPercentage
+                {
+                    ProjectId = p.Project_id,
+                    Percentage = p.Ended_count / p.Whole_count
+                })
+                .OrderByDescending(p => p.Percentage);
+
+            return res;
+        }
     }
 }

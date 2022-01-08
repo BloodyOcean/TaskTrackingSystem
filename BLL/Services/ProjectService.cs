@@ -5,6 +5,7 @@ using DAL.Enitites;
 using DAL.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -54,6 +55,12 @@ namespace BLL.Services
         {
             var res = await _uow.ProjectRepository.GetByIdWithDetailsAsync(id);
             return _mapper.Map<ProjectModel>(res);
+        }
+
+        public IEnumerable<ProjectModel> GetProjectsByEmployee(int id)
+        {
+            var res = _mapper.Map<IEnumerable<ProjectModel>>(_uow.ProjectRepository.GetAllWithDetails().Where(p => p.ManagerId == id));
+            return res;
         }
 
         public async Task UpdateAsync(ProjectModel model) 

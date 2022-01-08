@@ -9,8 +9,11 @@ import { UserService } from '../shared/user.service';
   ]
 })
 export class HomeComponent implements OnInit {
+  userRole: string[];
 
-  constructor(private router: Router, private service: UserService) { }
+  constructor(private router: Router, private service: UserService) { 
+    this.userRole = service.getUser(localStorage.getItem('token')).role;
+  }
 
   ngOnInit(): void {
   }

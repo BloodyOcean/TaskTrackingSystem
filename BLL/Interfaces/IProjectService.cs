@@ -10,5 +10,6 @@ namespace BLL.Interfaces
     {
         //IEnumerable<ProjectModel> GetByFilter(FilterSearchModel filterSearch);
         Task<ProjectModel> AssignManagerToProject(AssignManagerToProjectModel model);
+        public IEnumerable<ProjectModel> GetProjectsByEmployee(int id);
     }
 }

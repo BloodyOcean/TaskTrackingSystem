@@ -1,0 +1,45 @@
+<div class="form-group row">
+
+    <label class="col-sm-3 col-form-label">Assignment Title</label>
+    <div class="col-sm-9">
+        <input type="text" class="form-control" [(ngModel)]="Title"
+        placeholder="Enter assignment Title">
+    </div>
+    <label class="col-sm-3 col-form-label">Assignment Description</label>
+    <div class="col-sm-9">
+        <input type="text" class="form-control" [(ngModel)]="Description"
+        placeholder="Enter assignment Description">
+    </div>
+
+    <label class="col-sm-3 col-form-label" for="project">Project</label>
+
+    <div class="col-sm-9">
+
+        <select id="project" name="project" [(ngModel)]="project" class="form-control">
+            <option *ngFor="let proj of ProjectList" [value]="proj.Id">{{proj.Title}}</option>
+        </select>
+    </div>
+
+    <label class="col-sm-3 col-form-label">Creation Date</label>
+    <div class="col-sm-9">
+        <input matInput [matDatepicker]="picker" placeholder="Creation date" [(ngModel)]="creationd">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </div>
+
+
+    <label class="col-sm-3 col-form-label">Closure Date</label>
+    <div class="col-sm-9">
+        <input matInput [matDatepicker]="cpicker" placeholder="Closure date" [(ngModel)]="closured">
+        <mat-datepicker-toggle matSuffix [for]="cpicker"></mat-datepicker-toggle>
+        <mat-datepicker #cpicker></mat-datepicker>
+    </div>
+
+    
+
+</div>
+
+
+<div class="text-center">
+    <button (click)="addAssignment()" class="btn btn-primary" type="submit">Assign Task</button>
+</div>

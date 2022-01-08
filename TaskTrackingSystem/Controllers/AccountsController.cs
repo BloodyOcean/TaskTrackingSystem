@@ -78,6 +78,14 @@ namespace TaskTrackingSystem.Controllers
             return Ok(await _roleService.GetRoles());
         }
 
+        //DELETE: /api/accounts
+        [HttpDelete]
+        public async Task<IActionResult> RemoveUser(string email)
+        {
+            await _userService.DeleteAccountByEmail(email);
+            return Ok();
+        }
+
         //POST: /api/accounts/createRole
         [HttpPost("createRole")]
         public async Task<IActionResult> CreateRole(CreateRoleModel model)
@@ -88,14 +96,14 @@ namespace TaskTrackingSystem.Controllers
 
         //GET: /api/accounts
         [HttpGet]
-        //[Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin, manager")]
         public IActionResult GetAll()
         {
             return Ok(_userService.GetAll());
         }
 
-        [HttpDelete("roles")]
         //DELETE: /api/accounts/roles
+        [HttpDelete("roles")]
         public async Task<IActionResult> RemoveRole(string name)
         {
             await _roleService.DeleteRole(name);
@@ -113,7 +121,7 @@ namespace TaskTrackingSystem.Controllers
                 Roles = model.Roles
             });
 
-            await _mailService.SendEmailAsync(model.Email, "You have new role(s)!", "Congratulations! You have new roles(s)!");
+            //await _mailService.SendEmailAsync(model.Email, "You have new role(s)!", "Congratulations! You have new roles(s)!");
 
             return Ok();
         }

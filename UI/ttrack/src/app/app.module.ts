@@ -22,6 +22,12 @@ import { LoginComponent } from './user/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
+import { AccountComponent } from './account/account.component';
+import { ShowAccComponent } from './account/show-acc/show-acc.component';
+import { AddEditAccComponent } from './account/add-edit-acc/add-edit-acc.component';
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatInputModule } from "@angular/material/input";
+import { MatNativeDateModule } from "@angular/material/core";
 
 @NgModule({
   declarations: [
@@ -35,12 +41,19 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     UserComponent,
     RegistrationComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    AccountComponent,
+    ShowAccComponent,
+    AddEditAccComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    FormsModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatNativeDateModule,
     HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({

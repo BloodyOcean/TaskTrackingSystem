@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { UserService } from 'src/app/shared/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { UserModel } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-login',
@@ -27,12 +28,6 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(form:NgForm): void {
-
-    this.service.login(form.value).subscribe(response=>{
-      localStorage.setItem('token', response);
-      this.router.navigateByUrl('/home');
-   });
-
+    this.service.login(form.value);
   }
-
 }

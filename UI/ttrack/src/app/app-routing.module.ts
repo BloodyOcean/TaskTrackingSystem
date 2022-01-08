@@ -1,10 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AssignmentComponent } from './assignment/assignment.component';
+import { ProjectComponent } from "./project/project.component";
 import { AuthGuard } from './auth/auth.guard';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './user/login/login.component';
 import { RegistrationComponent } from './user/registration/registration.component';
 import { UserComponent } from './user/user.component';
+import { AccountComponent } from './account/account.component';
+import { HasRoleGuard } from './has-role.guard';
 
 const routes: Routes = [
   {
@@ -20,7 +24,16 @@ const routes: Routes = [
       {path:'login', component: LoginComponent}
     ]
   },
-  {path:'home', component:HomeComponent, canActivate: [AuthGuard]}
+  {
+    path:'home', 
+    component:HomeComponent,
+    children: [
+      {path:'assignments', component: AssignmentComponent},
+      {path:'projects', component: ProjectComponent, canActivate: [HasRoleGuard], data: {role: ['manager', 'admin']}},
+      {path:'accounts', component: AccountComponent, canActivate: [HasRoleGuard], data: {role: ['admin', 'manager']}}
+    ], 
+    canActivate: [AuthGuard]
+  }
 ];
 
 @NgModule({

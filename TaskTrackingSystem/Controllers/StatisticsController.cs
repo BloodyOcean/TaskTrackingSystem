@@ -1,4 +1,5 @@
-﻿using BLL.Models;
+﻿using Administration.Account;
+using BLL.Models;
 using BLL.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,15 +15,24 @@ namespace TaskTrackingSystem.Controllers
     public class StatisticsController : ControllerBase
     {
         private readonly IStatisticService _ss;
-        public StatisticsController(IStatisticService ss)
+        private readonly IUserService _userService;
+        public StatisticsController(IStatisticService ss, IUserService userService)
         {
+            this._userService = userService;
             this._ss = ss;
         }
 
         [HttpGet("{count}")]
-        public ActionResult<IEnumerable<CompletionPercentage>> GetCompletionPercentage(int count)
+        public ActionResult<IEnumerable<CompletionPercentage>> GetAllCompletionPercentage(int count)
         {
             return Ok(_ss.GetCompletionPercentages(count));
+        }
+
+        [HttpGet("manager/{count}")]
+        public async Task<ActionResult<IEnumerable<CompletionPercentage>>> GetAllCompletionPercentageByManager()
+        {
+            var id = await _userService.GetCurrentUserIdAsync(User);
+            return Ok(_ss.GetCompletionPercentagesByManager(id));
         }
     }
 }

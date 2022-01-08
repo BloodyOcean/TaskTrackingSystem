@@ -12,5 +12,6 @@ namespace Administration.Account
         Task<ApplicationUser> Logon(Logon logon);
         IEnumerable<ApplicationUser> GetAll();
         Task<int> GetCurrentUserIdAsync(System.Security.Claims.ClaimsPrincipal currentUser);
+        Task DeleteAccountByEmail(string email);
     }
 }

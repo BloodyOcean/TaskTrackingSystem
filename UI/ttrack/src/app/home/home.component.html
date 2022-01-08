@@ -1,31 +1,26 @@
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Task Tracking System</a>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Assingments
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">  
-              <a class="dropdown-item" href="#">Add new assignment</a>
-              <a class="dropdown-item" href="#">Edit assignment</a>
-              <a class="dropdown-item" href="#">Show all assignments</a>
-              <a class="dropdown-item" href="#">My assignments</a>
-            </div>
+  <a class="navbar-brand" href="#">Task Tracking System</a>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item"  *ngIf="userRole !== undefined && (userRole.includes('manager') || userRole.includes('admin'))">
+            <button routerLink="projects"
+            class="m-1 btn btn-light btn-outline-primary" Button>Projects</button>
         </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Projects
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">Add new project</a>
-              <a class="dropdown-item" href="#">Edit project</a>
-              <a class="dropdown-item" href="#">Show all projects</a>
-              <a class="dropdown-item" href="#">Assign user to project</a>
-              <a href="#" class="dropdown-item">My projects</a>
-            </div>
+        <li class="nav-item">
+            <button routerLink="assignments"
+            class="m-1 btn btn-light btn-outline-primary" Button>Assignments</button>
         </li>
-      </ul>
-    </div>
-    <button class="btn btn-danger my-2 my-sm-0" (click)="onLogout()">Logout</button>
-  </nav>
+        <li class="nav-item" *ngIf="userRole !== undefined && (userRole.includes('manager') || userRole.includes('admin'))"> 
+          <button routerLink="accounts"
+          class="m-1 btn btn-light btn-outline-primary" Button>Employees</button>
+      </li>
+      
+    </ul>
+  </div>
+  <button class="btn btn-danger my-2 my-sm-0" (click)="onLogout()">Logout</button>
+</nav>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

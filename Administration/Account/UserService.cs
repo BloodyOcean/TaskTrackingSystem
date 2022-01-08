@@ -22,6 +22,12 @@ namespace Administration.Account
             _roleManager = roleManager;
         }
 
+        public async Task DeleteAccountByEmail(string email)
+        {
+            var user = _userManager.Users.SingleOrDefault(u => u.Email == email);
+            await _userManager.DeleteAsync(user);
+        }
+
         public IEnumerable<ApplicationUser> GetAll()
         {
             return _userManager.Users;
