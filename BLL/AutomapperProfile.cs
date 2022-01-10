@@ -16,6 +16,8 @@ namespace BLL
                 .ForMember(p => p.HistoryIds, c => c.MapFrom(t => t.Histories.Select(x => x.Id)))
                 .ReverseMap();
 
+            CreateMap<AssignmentStatus, AssignmentStatusModel>()
+                .ReverseMap();
 
             CreateMap<Project, ProjectModel>()
                 .ForMember(p => p.AssignmentIds, c => c.MapFrom(t => t.Assignments.Select(x => x.Id)))

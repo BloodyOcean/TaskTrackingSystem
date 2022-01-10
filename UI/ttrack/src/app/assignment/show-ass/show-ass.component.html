@@ -1,7 +1,3 @@
-<!-- <button type="button" class="btn btn-primary float-right m-2" data-toggle="modal" data-target="#exampleModal" (click)="addClick()">
-    Add project
-</button>
-  
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -12,11 +8,11 @@
                 </button>
             </div>
             <div class="modal-body">
-                <app-add-edit-proj [proj]="proj" *ngIf="ActivateAddEditProjComp"></app-add-edit-proj>
+                <app-add-edit-ass [ass]="ass" *ngIf="ActivateAddEditProjComp"></app-add-edit-ass>
             </div>
         </div>
     </div>
-</div> -->
+</div>
 
 <table class="table table-striped">
     <thead>
@@ -37,7 +33,7 @@
             <td>{{dataItem.ClosureDate}}</td>
             <td>{{dataItem.AssignmentStatusId}}</td>
             <div>
-                <button class="m-1 btn btn-light btn-outline-primary" Button data-toggle="modal" data-target="#exampleModal">Edit</button>
+                <button class="m-1 btn btn-light btn-outline-primary" Button data-toggle="modal" data-target="#exampleModal" (click)="changeClick(dataItem)">Change status</button>
             </div>
         </tr>
     </tbody>

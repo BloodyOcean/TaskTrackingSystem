@@ -9,5 +9,7 @@ namespace BLL.Interfaces
     public interface IAssignmentService : ICrud<AssignmentModel>
     {
         public IEnumerable<AssignmentModel> GetAssignmentsByEmployee(int id);
+        public Task RemoveAssignmentsByEmployeeId(int id);
+        public int GetEmployeeId(int id);
     }
 }

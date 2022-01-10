@@ -10,11 +10,36 @@
         <input type="text" class="form-control" [(ngModel)]="Description"
         placeholder="Enter Project Description">
     </div>
-    <label class="col-sm-2 col-form-label" *ngIf="proj.Id!=0">Project Status</label>
+    
+    <!-- <label class="col-sm-2 col-form-label" *ngIf="proj.Id!=0">Project Status</label>
     <div class="col-sm-10" *ngIf="proj.Id!=0">
         <input type="text" class="form-control" [(ngModel)]="Status"
         placeholder="Enter Project Status">
+    </div> -->
+    
+    <label class="col-sm-2 col-form-label" for="status" *ngIf="proj.Id!=0">Status</label>
+    <div class="col-sm-10" *ngIf="proj.Id!=0">
+        <select id="status" name="status" [(ngModel)]="Status" class="form-control">
+            <option value="true">Open</option>
+            <option value="false">Closed</option>
+        </select>
     </div>
+
+    <label class="col-sm-3 col-form-label">Creation Date</label>
+    <div class="col-sm-9">
+        <input matInput [matDatepicker]="picker" placeholder="Creation date" [(ngModel)]="creationd">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </div>
+
+
+    <label class="col-sm-3 col-form-label">Closure Date</label>
+    <div class="col-sm-9">
+        <input matInput [matDatepicker]="cpicker" placeholder="Closure date" [(ngModel)]="closured">
+        <mat-datepicker-toggle matSuffix [for]="cpicker"></mat-datepicker-toggle>
+        <mat-datepicker #cpicker></mat-datepicker>
+    </div>
+    
 </div>
 
 <button (click)="addProject()" *ngIf="proj.Id==0" class="btn btn-primary">

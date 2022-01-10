@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { SharedService } from 'src/app/shared/shared.service';
 import { UserService } from 'src/app/shared/user.service';
 
@@ -14,31 +15,44 @@ export class ShowAccComponent implements OnInit {
   ModalTitle:string;
   acc:any;
 
+  modalType:boolean; //true - assigment, false - role
+
   userRole: string[];
 
-  constructor(private service:SharedService, private uservice:UserService) { 
+  constructor(private service:SharedService, private uservice:UserService, private toastr:ToastrService) { 
     this.userRole = uservice.getUser(localStorage.getItem('token')).role;
   }
 
   AccountsList:any=[];
 
   ngOnInit(): void {
-    this.refreshProjectList();
+    this.refreshAccountList();
   }
 
   addClick(dataItem) {
+    this.modalType = true;
     this.acc = dataItem.UserId;
-
     this.ModalTitle = "Add new assignment";
     this.ActivateAddEditProjComp = true;
   }
 
-  closeClick() {
-    this.ActivateAddEditProjComp = false;
-    this.refreshProjectList();
+  roleClick(dataItem) {
+    this.acc = dataItem;
+    this.modalType = false;
+    this.ModalTitle = "Add new role to user";
+    this.ActivateAddEditProjComp = true;
   }
 
-  refreshProjectList() {
+  delClick(dataItem) {
+    this.service.deleteAccount(dataItem.UserId).subscribe(() => {this.toastr.success('Employee removed successfuly', 'Success!'); this.refreshAccountList();});
+  }
+
+  closeClick() {
+    this.ActivateAddEditProjComp = false;
+    this.refreshAccountList();
+  }
+
+  refreshAccountList() {
     this.service.getAccountsList().subscribe(data => {this.AccountsList = data;})
   }
 

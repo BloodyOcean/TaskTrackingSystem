@@ -8,7 +8,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <app-add-edit-acc [acc]="acc" *ngIf="ActivateAddEditProjComp"></app-add-edit-acc>
+                <app-add-edit-acc [acc]="acc" *ngIf="ActivateAddEditProjComp && modalType"></app-add-edit-acc>
+                <app-add-role [acc]="acc" *ngIf="!modalType"></app-add-role>
             </div>
         </div>
     </div>
@@ -28,9 +29,15 @@
             <td>{{dataItem.Name}}</td>
             <td>{{dataItem.Email}}</td>
             <div>
-                <button class="m-1 btn btn-light btn-outline-primary" Button *ngIf="userRole !== undefined && userRole.includes('admin')">Add to role</button>
-                <button class="m-1 btn btn-light btn-outline-primary" Button *ngIf="userRole !== undefined && userRole.includes('admin')">Delete</button>
-                <button type="button" class="btn btn-primary float-right m-2" data-toggle="modal" data-target="#exampleModal" (click)="addClick(dataItem)">Give new Task</button>
+                <button class="m-1 btn btn-light btn-outline-primary" Button *ngIf="userRole !== undefined && userRole.includes('admin')" data-toggle="modal" data-target="#exampleModal" (click)="roleClick(dataItem)">
+                    Add to role
+                </button>
+                <button class="m-1 btn btn-light btn-outline-danger" Button *ngIf="userRole !== undefined && userRole.includes('admin')" (click)="delClick(dataItem)">
+                    Delete
+                </button>
+                <button type="button" class="btn btn-primary float-right m-2" data-toggle="modal" data-target="#exampleModal" (click)="addClick(dataItem)">
+                    Give new Task
+                </button>
             </div>
         </tr>
     </tbody>

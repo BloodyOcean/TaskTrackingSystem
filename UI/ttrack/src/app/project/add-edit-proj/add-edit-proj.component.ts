@@ -16,10 +16,13 @@ export class AddEditProjComponent implements OnInit {
   Creation:string;
   Closure: string;
   Status:boolean;
+  creationd:any;
+  closured:any;
 
   constructor(private service:SharedService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    console.log('here');
     this.Id=this.proj.Id;
     this.Title=this.proj.Title;
     this.Description = this.proj.Description;
@@ -30,21 +33,24 @@ export class AddEditProjComponent implements OnInit {
       // Id: this.Id,
       Title: this.Title,
       Description: this.Description,
-      // CreationDate: this.Creation,
-      // ClosureDate: this.Closure,
-       Status: true
+      CreationDate: this.creationd,
+      ClosureDate: this.closured,
+      Status: true
     }
 
     this.service.addProject(item).subscribe(res => {this.toastr.success("Item added succsessfuly", "Success")});
   }
 
   updateProject() {
+
+    console.log(this.Status);
+
     var item = {
       Id: this.Id,
       Title: this.Title,
       Description: this.Description,
-      // CreationDate: this.Creation,
-      // ClosureDate: this.Closure,
+      CreationDate: this.creationd,
+      ClosureDate: this.closured,
       Status: this.Status
     }
 

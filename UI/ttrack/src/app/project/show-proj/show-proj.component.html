@@ -18,6 +18,22 @@
     </div>
 </div>
 
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Project History</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeClick()"> 
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <app-details [detproj]="detproj" *ngIf="ActivatedDetails"></app-details>
+            </div>
+        </div>
+    </div>
+</div>
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -35,9 +51,10 @@
             <td>{{dataItem.Description}}</td>
             <td>{{dataItem.CreationDate}}</td>
             <td>{{dataItem.ClosureDate}}</td>
-            <td>{{dataItem.Status}}</td>
+            <td>{{dataItem.Status ? 'Open' : 'Closed'}}</td>
             <div>
                 <button class="m-1 btn btn-light btn-outline-primary" Button data-toggle="modal" data-target="#exampleModal" (click)="editClick(dataItem)">Edit</button>
+                <button class="m-1 btn btn-light btn-outline-primary" Button data-toggle="modal" data-target="#exampleModal1" (click)="detailsClick(dataItem)">Details</button>
             </div>
         </tr>
     </tbody>

@@ -1,4 +1,6 @@
-﻿using Administration.Account;
+﻿using Administration;
+using Administration.Account;
+using BLL.Interfaces;
 using BLL.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -21,13 +23,16 @@ namespace TaskTrackingSystem.Controllers
         private readonly IRoleService _roleService;
         private readonly JwtSettings _jwtSettings;
         private readonly IEmailService _mailService;
+        private readonly IAssignmentService _assignmentService;
 
         public AccountsController(
+            IAssignmentService assignmentService,
             IUserService userService,
             IRoleService roleService,
             IOptionsSnapshot<JwtSettings> jwtSettings,
             IEmailService emailService)
         {
+            _assignmentService = assignmentService;
             _roleService = roleService;
             _userService = userService;
             _jwtSettings = jwtSettings.Value;
@@ -78,11 +83,20 @@ namespace TaskTrackingSystem.Controllers
             return Ok(await _roleService.GetRoles());
         }
 
+        [HttpGet("assignment/{id}")]
+        public ActionResult<ApplicationUser> GetUserByAssignmentId(int id)
+        {
+            var employeeId = _assignmentService.GetEmployeeId(id);
+            var res = _userService.GetAll().First(p => p.UserId == employeeId);
+            return Ok(res);            
+        }
+
         //DELETE: /api/accounts
         [HttpDelete]
-        public async Task<IActionResult> RemoveUser(string email)
+        public async Task<IActionResult> RemoveUser(int id)
         {
-            await _userService.DeleteAccountByEmail(email);
+            await _userService.DeleteAccountByUserId(id);
+            await _assignmentService.RemoveAssignmentsByEmployeeId(id);            
             return Ok();
         }
 

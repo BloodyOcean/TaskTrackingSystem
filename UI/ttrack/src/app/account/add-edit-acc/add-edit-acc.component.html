@@ -1,4 +1,4 @@
-<div class="form-group row">
+<div class="form-group row" >
 
     <label class="col-sm-3 col-form-label">Assignment Title</label>
     <div class="col-sm-9">
@@ -12,7 +12,6 @@
     </div>
 
     <label class="col-sm-3 col-form-label" for="project">Project</label>
-
     <div class="col-sm-9">
 
         <select id="project" name="project" [(ngModel)]="project" class="form-control">
@@ -34,11 +33,7 @@
         <mat-datepicker-toggle matSuffix [for]="cpicker"></mat-datepicker-toggle>
         <mat-datepicker #cpicker></mat-datepicker>
     </div>
-
-    
-
 </div>
-
 
 <div class="text-center">
     <button (click)="addAssignment()" class="btn btn-primary" type="submit">Assign Task</button>

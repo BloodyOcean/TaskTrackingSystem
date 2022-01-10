@@ -1,0 +1,19 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ProjectId</th>
+            <th>Title</th>
+            <th>Percentage</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let dataItem of StatisticList">
+            <td>{{dataItem.ProjectId}}</td>
+            <td>{{dataItem.ProjectTitle}}</td>
+            <td>{{dataItem.Percentage * 100 + '%'}}</td>
+            <!-- <div>
+                <button class="m-1 btn btn-light btn-outline-primary" Button data-toggle="modal" data-target="#exampleModal" (click)="detailsClick(dataItem)">Details</button>
+            </div> -->
+        </tr>
+    </tbody>
+</table>

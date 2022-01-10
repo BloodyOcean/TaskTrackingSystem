@@ -7,6 +7,7 @@ namespace BLL.Models
     public class CompletionPercentage
     {
         public int ProjectId { get; set; }
+        public string ProjectTitle { get; set; }
         public double Percentage { get; set; }
     }
 }

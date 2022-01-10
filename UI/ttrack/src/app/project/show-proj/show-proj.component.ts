@@ -14,7 +14,9 @@ export class ShowProjComponent implements OnInit {
   
   ModalTitle:string;
   proj:any;
+  detproj:number;
   ActivateAddEditProjComp:boolean = false;
+  ActivatedDetails:boolean = false;
 
   ngOnInit(): void {
     this.refreshProjectList();
@@ -26,6 +28,7 @@ export class ShowProjComponent implements OnInit {
 
   closeClick() {
     this.ActivateAddEditProjComp = false;
+    this.ActivatedDetails = false;
     this.refreshProjectList();
   }
 
@@ -33,6 +36,14 @@ export class ShowProjComponent implements OnInit {
     this.ModalTitle = "Edit project";
     this.proj = dataItem;
     this.ActivateAddEditProjComp = true;
+  }
+
+  detailsClick(dataItem) {
+    //console.log(dataItem);
+    //this.ModalTitle = "Project History";
+    this.detproj = dataItem.Id;
+    console.log(this.detproj);
+    this.ActivatedDetails = true;
   }
 
   addClick() {

@@ -42,7 +42,27 @@ namespace BLL.Services
 
         public IEnumerable<HistoryModel> GetAllByEmployeeId(int id)
         {
-            var res = _uow.HistoryRepository.GetAllWithDetails().Where(p => p.UpdatedBy == id).ToList();
+            var res = _uow.HistoryRepository.GetAllWithDetails().Where(p => p.Assignment.EmployeeId == id).ToList();
+            return _mapper.Map<IEnumerable<HistoryModel>>(res);
+        }
+
+        public IEnumerable<HistoryModel> GetAllByEmployeeProjects(int employeeId)
+        {
+            var projects = _uow.ProjectRepository.GetAllWithDetails().Where(p => p.Assignments.Select(p => p.EmployeeId).Contains(employeeId)).Select(p => p.Id);
+            var res = _uow.HistoryRepository.GetAllWithDetails().Where(p => projects.Contains(p.Assignment.Project.Id));
+            return _mapper.Map<IEnumerable<HistoryModel>>(res);
+        }
+
+        public IEnumerable<HistoryModel> GetAllByManagerProjects(int managerId)
+        {
+            var projects = _uow.ProjectRepository.GetAllWithDetails().Where(p => p.ManagerId == managerId).Select(p => p.Id).ToList();
+            var res = _uow.HistoryRepository.GetAllWithDetails().Where(p => projects.Contains(p.Assignment.Project.Id));
+            return _mapper.Map<IEnumerable<HistoryModel>>(res);
+        }
+
+        public IEnumerable<HistoryModel> GetAllByProjectId(int id)
+        {
+            var res = _uow.HistoryRepository.GetAllWithDetails().Where(p => p.Assignment.ProjectID == id).ToList();
             return _mapper.Map<IEnumerable<HistoryModel>>(res);
         }
 

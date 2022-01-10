@@ -13,7 +13,32 @@ export class SharedService {
 
   getAssignmentsList():Observable<any[]>
   {
-    return this.http.get<any>(this.BaseURI + '/assignments/employee')
+    return this.http.get<any>(this.BaseURI + '/assignments/employee');
+  }
+
+  getAllAssignments():Observable<any[]> {
+    return this.http.get<any>(this.BaseURI + '/assignments');
+  }
+
+  getAssignmentById(val:any):Observable<any[]> {
+    return this.http.get<any>(this.BaseURI + '/assignments/' + val);
+  }
+
+  getStatusList():Observable<any[]> {
+    return this.http.get<any>(this.BaseURI + '/statuses')
+  }
+
+  getEmployeeHistoryList():Observable<any[]> {
+    return this.http.get<any>(this.BaseURI + '/histories/employee/project')
+  }
+
+  getManagerHistoryList():Observable<any[]> {
+    return this.http.get<any>(this.BaseURI + '/histories/manager/project')
+  }
+
+  addRoles(val:any)
+  {
+    return this.http.post(this.BaseURI + '/accounts/AssignUserToRole', val);
   }
 
   addAssignment(val:any)
@@ -21,9 +46,12 @@ export class SharedService {
     return this.http.post(this.BaseURI + '/assignments', val);
   }
 
-  updateAssignment(val:any)
-  {
+  updateAssignment(val:any) {
     return this.http.put(this.BaseURI + '/assignments', val);
+  }
+
+  addHistory(val:any) {
+    return this.http.post(this.BaseURI + '/histories', val);
   }
 
   updateProject(val:any)
@@ -45,8 +73,29 @@ export class SharedService {
     return this.http.get<any>(this.BaseURI + '/projects/employee');
   }
 
+  deleteAccount(val:any) {
+    return this.http.delete(this.BaseURI + '/accounts?id=' + val);
+  }
+
   getAccountsList():Observable<any[]> {
     return this.http.get<any>(this.BaseURI + '/accounts');
   }
+
+  getStatisticList() {
+    return this.http.get<any>(this.BaseURI + '/statistics/manager');
+  }
+
+  getHistoryList(val:any) {
+    return this.http.get<any>(this.BaseURI + '/histories/project/' + val);
+  }
+
+  getProjectByAssignmentId(val):Observable<any> {
+    return this.http.get<any>(this.BaseURI + '/projects/assignment/' + val);
+  }
+
+  getAccountByAssignmentId(val):Observable<any> {
+    return this.http.get<any>(this.BaseURI + '/accounts/assignment/' + val);
+  }
+
 
 }

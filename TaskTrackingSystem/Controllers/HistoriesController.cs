@@ -1,4 +1,5 @@
-﻿using BLL.Interfaces;
+﻿using Administration.Account;
+using BLL.Interfaces;
 using BLL.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,8 +15,10 @@ namespace TaskTrackingSystem.Controllers
     public class HistoriesController : ControllerBase
     {
         private readonly IHistoryService _hs;
-        public HistoriesController(IHistoryService historyService)
+        private readonly IUserService _userService;
+        public HistoriesController(IHistoryService historyService, IUserService userService)
         {
+            this._userService = userService;
             this._hs = historyService;
         }
 
@@ -25,6 +28,37 @@ namespace TaskTrackingSystem.Controllers
         {
             
             return Ok(_hs.GetAllByEmployeeId(id));
+        }
+
+        //GET: /api/histories/employee
+        [HttpGet("employee")]
+        public async Task<ActionResult<IEnumerable<HistoryModel>>> GetAllByCurrentUser()
+        {
+            var id = await _userService.GetCurrentUserIdAsync(User);
+            return Ok(_hs.GetAllByEmployeeId(id));
+        }
+
+        [HttpGet("project/{id}")]
+        public ActionResult<IEnumerable<HistoryModel>> GetAllByProjectId(int id)
+        {
+            var res = _hs.GetAllByProjectId(id);
+            return Ok(res);
+        }
+
+        [HttpGet("employee/project")]
+        public async Task<ActionResult<IEnumerable<HistoryModel>>> GetAllByCurrentEmployeeProjects()
+        {
+            var id = await _userService.GetCurrentUserIdAsync(User);
+            var res = _hs.GetAllByEmployeeProjects(id);
+            return Ok(res);
+        }
+
+        [HttpGet("manager/project")]
+        public async Task<ActionResult<IEnumerable<HistoryModel>>> GetAllByCurrentManagerProjects()
+        {
+            var id = await _userService.GetCurrentUserIdAsync(User);
+            var res = _hs.GetAllByManagerProjects(id);
+            return Ok(res);
         }
 
         //GET: /api/histories

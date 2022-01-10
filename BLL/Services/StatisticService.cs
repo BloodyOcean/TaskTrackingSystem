@@ -13,6 +13,8 @@ namespace BLL.Services
         private IUnitOfWork _uow;
         private IMapper _mapper;
 
+        private readonly string _taskFinishStatusName = "Ended";
+
         public StatisticService(IUnitOfWork uow, IMapper mapper)
         {
             this._uow = uow;
@@ -25,13 +27,15 @@ namespace BLL.Services
                 .Select(p => new
                 {
                     Project_id = p.Id,
-                    Ended_count = p.Assignments.Where(l => l.AssignmentStatus.Status == "New").Count(),
+                    Project_name = p.Title,
+                    Ended_count = p.Assignments.Where(l => l.AssignmentStatus.Status == _taskFinishStatusName).Count(),
                     Whole_count = p.Assignments.Count()
                 })
                 .Select(p => new CompletionPercentage
                 {
                     ProjectId = p.Project_id,
-                    Percentage = p.Ended_count / p.Whole_count
+                    ProjectTitle = p.Project_name,
+                    Percentage = (double)p.Ended_count / (double)p.Whole_count
                 })
                 .OrderByDescending(p => p.Percentage)
                 .Take(count);
@@ -46,13 +50,15 @@ namespace BLL.Services
                 .Select(p => new
                 {
                     Project_id = p.Id,
-                    Ended_count = p.Assignments.Where(l => l.AssignmentStatus.Status == "New").Count(),
+                    Project_name = p.Title,
+                    Ended_count = p.Assignments.Where(l => l.AssignmentStatus.Status == _taskFinishStatusName).Count(),
                     Whole_count = p.Assignments.Count()
                 })
                 .Select(p => new CompletionPercentage
                 {
                     ProjectId = p.Project_id,
-                    Percentage = p.Ended_count / p.Whole_count
+                    ProjectTitle = p.Project_name,
+                    Percentage = (double)p.Ended_count / (double)p.Whole_count
                 })
                 .OrderByDescending(p => p.Percentage);
 

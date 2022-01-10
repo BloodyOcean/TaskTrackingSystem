@@ -62,6 +62,7 @@ namespace TaskTrackingSystem
             services.AddScoped<IHistoryRepository, HistoryRepository>();
             services.AddScoped<IProjectRepository, ProjectRepository>();
             services.AddScoped<IAssignmentRepository, AssignmentRepository>();
+            services.AddScoped<IAssignmentStatusRepository, AssignmentStatusRepository>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
@@ -80,7 +81,7 @@ namespace TaskTrackingSystem
             services.AddScoped<IAssignmentService, AssignmentService>();
             services.AddScoped<IStatisticService, StatisticService>();
             services.AddScoped<IHistoryService, HistoryService>();
-
+            services.AddScoped<IAssignmentStatusService, AssignmentStatusService>();
             services.AddScoped<IEmailService, EmailService>();
 
             services.Configure<JwtSettings>(Configuration.GetSection("Jwt"));
@@ -166,8 +167,6 @@ namespace TaskTrackingSystem
                 builder.WithOrigins("http://localhost:4200")
                 .AllowAnyHeader()
                 .AllowAnyMethod());
-
-            
 
             app.UseHttpsRedirection();
 

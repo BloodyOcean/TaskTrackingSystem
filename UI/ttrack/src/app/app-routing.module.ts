@@ -9,6 +9,8 @@ import { RegistrationComponent } from './user/registration/registration.componen
 import { UserComponent } from './user/user.component';
 import { AccountComponent } from './account/account.component';
 import { HasRoleGuard } from './has-role.guard';
+import { HistoryComponent } from './history/history.component';
+import { StatisticComponent } from './statistic/statistic.component';
 
 const routes: Routes = [
   {
@@ -30,7 +32,9 @@ const routes: Routes = [
     children: [
       {path:'assignments', component: AssignmentComponent},
       {path:'projects', component: ProjectComponent, canActivate: [HasRoleGuard], data: {role: ['manager', 'admin']}},
-      {path:'accounts', component: AccountComponent, canActivate: [HasRoleGuard], data: {role: ['admin', 'manager']}}
+      {path:'accounts', component: AccountComponent, canActivate: [HasRoleGuard], data: {role: ['admin', 'manager']}},
+      {path: 'histories', component: HistoryComponent},
+      {path: 'statistics', component: StatisticComponent, canActivate: [HasRoleGuard], data: {role: ['manager', 'admin']}}
     ], 
     canActivate: [AuthGuard]
   }

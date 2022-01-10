@@ -1,1 +1,26 @@
-<p>add-edit-ass works!</p>
+<div class="form-group row" >
+
+    <label class="col-sm-3 col-form-label" for="project">Status</label>
+    <div class="col-sm-9">
+        <select id="status" name="status" [(ngModel)]="status" class="form-control">
+            <option *ngFor="let stat of StatusList" [value]="stat.Id">{{stat.Status}}</option>
+        </select>
+    </div>
+
+    <label class="col-sm-3 col-form-label">Change Date</label>
+    <div class="col-sm-9">
+        <input matInput [matDatepicker]="picker" placeholder="Creation date" [(ngModel)]="changed">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </div>
+
+
+    <label class="col-sm-3 col-form-label">Enter comment</label>
+    <div class="col-sm-9">
+        <input type="text" class="form-control" [(ngModel)]="comment"
+        placeholder="Enter comment">
+    </div>
+
+<div class="text-center">
+    <button (click)="change()" class="btn btn-primary" type="submit">Change status</button>
+</div>

@@ -9,11 +9,11 @@ namespace DAL.Interfaces
     {
         IAssignmentRepository AssignmentRepository { get; }
 
-       /* IEmployeeRepository EmployeeRepository { get; }*/
-
         IHistoryRepository HistoryRepository { get; }
 
         IProjectRepository ProjectRepository { get; }
+
+        IAssignmentStatusRepository AssignmentStatusRepository { get; }
 
         Task<int> SaveAsync();
     }

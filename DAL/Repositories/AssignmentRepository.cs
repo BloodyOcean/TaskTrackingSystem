@@ -30,10 +30,22 @@ namespace DAL.Repositories
             }
         }
 
+        public void DeleteAssignmentsByEmployeeId(int id)
+        {
+            var assignments = _db.Assignments.Where(p => p.EmployeeId == id);
+            foreach (var item in assignments)
+            {
+                _db.Assignments.Remove(item);
+            }
+        }
+
         public async Task DeleteByIdAsync(int id)
         {
             var en = await _db.Assignments.SingleOrDefaultAsync(p => p.Id == id);
-            _db.Assignments.Remove(en);
+            if (en != null)
+            {
+                _db.Assignments.Remove(en);
+            }
         }
 
         public IQueryable<Assignment> FindAll()
@@ -43,7 +55,7 @@ namespace DAL.Repositories
 
         public IQueryable<Assignment> GetAllWithDetails()
         {
-            return _db.Assignments.Include(p => p.Project);
+            return _db.Assignments.Include(p => p.Project).Include(p => p.Histories);
         }
 
         public async Task<Assignment> GetByIdAsync(int id)
@@ -66,8 +78,6 @@ namespace DAL.Repositories
         {
             _db.Assignments.Attach(entity);
             _db.Entry(entity).State = EntityState.Modified;
-
-
         }
     }
 }

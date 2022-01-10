@@ -31,6 +31,13 @@ namespace TaskTrackingSystem.Controllers
             return Ok(_ps.GetAll());
         }
 
+        //GET: /api/projects/assignment
+        [HttpGet("assignment/{id}")]
+        public ActionResult<ProjectModel> GetByAssignmentId(int id)
+        {
+            return Ok(_ps.GetByAssignmentId(id));
+        }
+
         //GET: /api/projects/employee
         [HttpGet("employee")]
         public async Task<ActionResult<IEnumerable<ProjectModel>>> GetProjectsOfCurrentUser()

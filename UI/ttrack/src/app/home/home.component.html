@@ -6,14 +6,22 @@
       <li class="nav-item"  *ngIf="userRole !== undefined && (userRole.includes('manager') || userRole.includes('admin'))">
             <button routerLink="projects"
             class="m-1 btn btn-light btn-outline-primary" Button>Projects</button>
-        </li>
-        <li class="nav-item">
-            <button routerLink="assignments"
-            class="m-1 btn btn-light btn-outline-primary" Button>Assignments</button>
-        </li>
-        <li class="nav-item" *ngIf="userRole !== undefined && (userRole.includes('manager') || userRole.includes('admin'))"> 
-          <button routerLink="accounts"
-          class="m-1 btn btn-light btn-outline-primary" Button>Employees</button>
+      </li>
+      <li class="nav-item">
+          <button routerLink="assignments"
+          class="m-1 btn btn-light btn-outline-primary" Button>Assignments</button>
+      </li>
+      <li class="nav-item">
+        <button routerLink="histories"
+        class="m-1 btn btn-light btn-outline-primary" Button>History</button>
+      </li>
+      <li class="nav-item" *ngIf="userRole !== undefined && (userRole.includes('manager') || userRole.includes('admin'))">
+        <button routerLink="statistics"
+        class="m-1 btn btn-light btn-outline-primary" Button>Statistic</button>
+      </li>
+      <li class="nav-item" *ngIf="userRole !== undefined && (userRole.includes('manager') || userRole.includes('admin'))"> 
+        <button routerLink="accounts"
+        class="m-1 btn btn-light btn-outline-primary" Button>Employees</button>
       </li>
       
     </ul>

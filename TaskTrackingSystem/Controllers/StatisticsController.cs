@@ -28,7 +28,7 @@ namespace TaskTrackingSystem.Controllers
             return Ok(_ss.GetCompletionPercentages(count));
         }
 
-        [HttpGet("manager/{count}")]
+        [HttpGet("manager")]
         public async Task<ActionResult<IEnumerable<CompletionPercentage>>> GetAllCompletionPercentageByManager()
         {
             var id = await _userService.GetCurrentUserIdAsync(User);

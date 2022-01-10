@@ -28,6 +28,10 @@ import { AddEditAccComponent } from './account/add-edit-acc/add-edit-acc.compone
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatInputModule } from "@angular/material/input";
 import { MatNativeDateModule } from "@angular/material/core";
+import { AddRoleComponent } from './account/add-role/add-role.component';
+import { HistoryComponent } from './history/history.component';
+import { StatisticComponent } from './statistic/statistic.component';
+import { DetailsComponent } from './project/details/details.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +48,11 @@ import { MatNativeDateModule } from "@angular/material/core";
     HomeComponent,
     AccountComponent,
     ShowAccComponent,
-    AddEditAccComponent
+    AddEditAccComponent,
+    AddRoleComponent,
+    HistoryComponent,
+    StatisticComponent,
+    DetailsComponent
   ],
   imports: [
     BrowserModule,

@@ -9,5 +9,8 @@ namespace BLL.Interfaces
     public interface IHistoryService : ICrud<HistoryModel>
     {
         public IEnumerable<HistoryModel> GetAllByEmployeeId(int id);
+        public IEnumerable<HistoryModel> GetAllByProjectId(int id);
+        public IEnumerable<HistoryModel> GetAllByEmployeeProjects(int employeeId);
+        public IEnumerable<HistoryModel> GetAllByManagerProjects(int managerId);
     }
 }

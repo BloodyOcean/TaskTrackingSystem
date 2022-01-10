@@ -37,10 +37,6 @@ export class AddEditAccComponent implements OnInit {
 
   addAssignment() {
 
-    console.log(this.project);
-    console.log(this.creationd);
-    console.log(this.closured);
-
     var item = {
       Title: this.Title,
       Description: this.Description,

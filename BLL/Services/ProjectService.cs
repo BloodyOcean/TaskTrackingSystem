@@ -51,6 +51,12 @@ namespace BLL.Services
             return res;
         }
 
+        public ProjectModel GetByAssignmentId(int id)
+        {
+            var res = _uow.ProjectRepository.GetAllWithDetails().First(p => p.Assignments.Select(l => l.Id).Contains(id));
+            return _mapper.Map<ProjectModel>(res);
+        }
+
         public async Task<ProjectModel> GetByIdAsync(int id)
         {
             var res = await _uow.ProjectRepository.GetByIdWithDetailsAsync(id);

@@ -10,7 +10,7 @@ namespace DAL.Interfaces
     public interface IAssignmentRepository : IRepository<Assignment>
     {
         IQueryable<Assignment> GetAllWithDetails();
-
+        void DeleteAssignmentsByEmployeeId(int id);
         Task<Assignment> GetByIdWithDetailsAsync(int id);
     }
 }

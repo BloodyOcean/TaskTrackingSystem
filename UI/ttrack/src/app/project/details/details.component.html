@@ -1,0 +1,22 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>TaskId</th>
+            <th>AssignmentTitle</th>
+            <th>Employee</th>
+            <th>ChangeDate</th>
+            <th>Comment</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let dataItem of HistoryList">
+            <td>{{dataItem.Id}}</td>
+            <td>{{dataItem.AssignmentId}}</td>
+            <td>{{dataItem.Title}}</td>
+            <td>{{dataItem.Employee}}</td>
+            <td>{{dataItem.ChangeDate}}</td>
+            <td>{{dataItem.Comment}}</td>
+        </tr>
+    </tbody>
+</table>

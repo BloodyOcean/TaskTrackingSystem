@@ -28,6 +28,12 @@ namespace Administration.Account
             await _userManager.DeleteAsync(user);
         }
 
+        public async Task DeleteAccountByUserId(int id)
+        {
+            var user = _userManager.Users.SingleOrDefault(u => u.UserId == id);
+            await _userManager.DeleteAsync(user);
+        }
+
         public IEnumerable<ApplicationUser> GetAll()
         {
             return _userManager.Users;

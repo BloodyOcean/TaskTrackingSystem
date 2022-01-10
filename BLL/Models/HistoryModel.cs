@@ -8,7 +8,6 @@ namespace BLL.Models
     {
         public int Id { get; set; }
         public DateTime ChangeDate { get; set; }
-        public int? UpdatedBy { get; set; }
         public int? AssignmentId { get; set; }
         public string Comment { get; set; }
     }

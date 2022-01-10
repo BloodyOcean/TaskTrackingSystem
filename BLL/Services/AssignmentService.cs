@@ -51,6 +51,18 @@ namespace BLL.Services
             return _mapper.Map<AssignmentModel>(res);
         }
 
+        public int GetEmployeeId(int id)
+        {
+            var res = _uow.AssignmentRepository.FindAll().First(p => p.Id == id);
+            return (int)res.EmployeeId;
+        }
+
+        public async Task RemoveAssignmentsByEmployeeId(int id)
+        {
+            _uow.AssignmentRepository.DeleteAssignmentsByEmployeeId(id);
+            await _uow.SaveAsync();
+        }
+
         public async Task UpdateAsync(AssignmentModel model)
         {
             _uow.AssignmentRepository.Update(_mapper.Map<Assignment>(model));
