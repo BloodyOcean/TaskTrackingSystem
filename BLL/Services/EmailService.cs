@@ -6,6 +6,14 @@ namespace BLL.Services
 {
     public class EmailService : IEmailService
     {
+        /// <summary>
+        /// Creates new message object and sends this message using SMTP.
+        /// Should be injected. Only works for testing and with approved emails
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="subject"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
         public async Task SendEmailAsync(string email, string subject, string message)
         {
             var emailMessage = new MimeMessage();

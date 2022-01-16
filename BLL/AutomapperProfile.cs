@@ -8,6 +8,9 @@ using System.Text;
 
 namespace BLL
 {
+    /// <summary>
+    /// Converts DTO into DAL entities or DAL entities into DTOs
+    /// </summary>
     public class AutomapperProfile : Profile
     {
         public AutomapperProfile()

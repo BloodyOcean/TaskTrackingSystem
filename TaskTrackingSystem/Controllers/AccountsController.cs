@@ -39,7 +39,12 @@ namespace TaskTrackingSystem.Controllers
             _mailService = emailService;
         }
 
-        //POST: /api/accounts/register
+        /// <summary>
+        /// Gets register credentiasl and made new user record in db
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns>Status 201 if account created</returns>
+        /// <example>POST: /api/accounts/register</example>
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody]RegisterModel model)
         {
@@ -53,7 +58,12 @@ namespace TaskTrackingSystem.Controllers
             return Created(string.Empty, string.Empty);
         }
 
-        //POST: /api/accounts/logon
+        /// <summary>
+        /// Gets login credentials and generate JWT for this person
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns>JWT token of person and status 200</returns>
+        /// <example>POST: /api/accounts/logon</example>
         [HttpPost("logon")]
         public async Task<IActionResult> Logon(LogonModel model)
         {
@@ -76,14 +86,26 @@ namespace TaskTrackingSystem.Controllers
             return Ok(JwtHelper.GenerateJwt(user, roles, _jwtSettings));
         }
 
-        //GET: /api/accounts/getRoles
+        /// <summary>
+        /// takes all role from db and returns them
+        /// </summary>
+        /// <returns></returns>
+        /// <example>GET: /api/accounts/getRoles</example>
         [HttpGet("getRoles")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> GetRoles()
         {
             return Ok(await _roleService.GetRoles());
         }
 
+        /// <summary>
+        /// Finds user by his taskID in assignmentRepository and returns it 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <example>GET: /api/assignment</example>
         [HttpGet("assignment/{id}")]
+        [Authorize(Roles = "admin, manager")]
         public ActionResult<ApplicationUser> GetUserByAssignmentId(int id)
         {
             var employeeId = _assignmentService.GetEmployeeId(id);
@@ -91,8 +113,15 @@ namespace TaskTrackingSystem.Controllers
             return Ok(res);            
         }
 
-        //DELETE: /api/accounts
+        /// <summary>
+        /// get UserId property from context of user, find him and remove
+        /// also delete all assignments of this user
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <example>DELETE: /api/accounts</example>
         [HttpDelete]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> RemoveUser(int id)
         {
             await _userService.DeleteAccountByUserId(id);
@@ -100,15 +129,25 @@ namespace TaskTrackingSystem.Controllers
             return Ok();
         }
 
-        //POST: /api/accounts/createRole
+        /// <summary>
+        /// Takes string from 5 to 20 chars and add new entity in db
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns>Status 200 if role created</returns>
+        /// <example>POST: /api/accounts/createRole</example>
         [HttpPost("createRole")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> CreateRole(CreateRoleModel model)
         {
             await _roleService.CreateRole(model.RoleName);
             return Ok();
         }
 
-        //GET: /api/accounts
+        /// <summary>
+        /// Take all user info from db from db
+        /// </summary>
+        /// <returns></returns>
+        /// <example>GET: /api/accounts</example>
         [HttpGet]
         [Authorize(Roles = "admin, manager")]
         public IActionResult GetAll()
@@ -116,17 +155,29 @@ namespace TaskTrackingSystem.Controllers
             return Ok(_userService.GetAll());
         }
 
-        //DELETE: /api/accounts/roles
+        /// <summary>
+        /// gets the string with role name and delete this role from db
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>Status 200 if role deleted</returns>
+        /// <example>DELETE: /api/accounts/roles</example>
         [HttpDelete("roles")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> RemoveRole(string name)
         {
             await _roleService.DeleteRole(name);
             return Ok();
         }
 
-
-        //POST: /api/accounts/assignUserToRole
+        /// <summary>
+        /// Gets roles in string format (ex. "admin, manager") and email of user
+        /// after assigning the roles, method send email for this user
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns>Status 200 if roles assigned</returns>
+        /// <example>POST: /api/accounts/assignUserToRole</example>
         [HttpPost("assignUserToRole")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> AssignUserToRole(AssignUserToRoleModel model)
         {
             await _roleService.AssignUserToRoles(new AssignUserToRoles
@@ -135,7 +186,7 @@ namespace TaskTrackingSystem.Controllers
                 Roles = model.Roles
             });
 
-            //await _mailService.SendEmailAsync(model.Email, "You have new role(s)!", "Congratulations! You have new roles(s)!");
+            await _mailService.SendEmailAsync(model.Email, "You have new role(s)!", "Congratulations! You have new roles(s)!");
 
             return Ok();
         }

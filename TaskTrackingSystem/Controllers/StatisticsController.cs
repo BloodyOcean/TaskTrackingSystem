@@ -22,12 +22,23 @@ namespace TaskTrackingSystem.Controllers
             this._ss = ss;
         }
 
+        /// <summary>
+        /// Made list of percentages, sort it and take first N elements
+        /// </summary>
+        /// <param name="count"></param>
+        /// <returns>List of sorted percentages in descending order</returns>
+        /// <example>GET: api/statistics</example>
         [HttpGet("{count}")]
         public ActionResult<IEnumerable<CompletionPercentage>> GetAllCompletionPercentage(int count)
         {
             return Ok(_ss.GetCompletionPercentages(count));
         }
 
+        /// <summary>
+        /// Made list of percentages in descending order of current manager projects
+        /// </summary>
+        /// <returns>All list of percentages by current manager loged in</returns>
+        /// <example>GET api/statistics/manager</example>
         [HttpGet("manager")]
         public async Task<ActionResult<IEnumerable<CompletionPercentage>>> GetAllCompletionPercentageByManager()
         {

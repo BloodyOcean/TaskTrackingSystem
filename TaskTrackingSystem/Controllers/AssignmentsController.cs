@@ -14,7 +14,6 @@ namespace TaskTrackingSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
     public class AssignmentsController : ControllerBase
     {
         private readonly IAssignmentService _as;
@@ -25,30 +24,53 @@ namespace TaskTrackingSystem.Controllers
             this._as = assignmentService;
         }
 
-        //GET: /api/assignments
+        /// <summary>
+        /// Returns all tasks from db
+        /// </summary>
+        /// <returns>Status 200</returns>
+        /// <example>GET: /api/assignments</example>
         [HttpGet]
+        [Authorize(Roles = "admin, manager")]
         public ActionResult<IEnumerable<AssignmentModel>> GetAll()
         {
             return Ok(_as.GetAll());
         }
 
-        //GET: /api/assignments
+        /// <summary>
+        /// Returns assignment info from Db by its id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Status 200</returns>
+        /// <example>GET: /api/assignments</example>
         [HttpGet("{id}")]
+        [Authorize(Roles = "admin, manager")]
         public async Task<ActionResult<AssignmentModel>> GetById(int id)
         {
             return Ok(await _as.GetByIdAsync(id));
         }
 
-        //DELETE: /api/assignments
+        /// <summary>
+        /// Removes record of task by Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <example>DELETE: /api/assignments</example>
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> Delete(int id)
         {
             await _as.DeleteByIdAsync(id);
             return Ok();
         }
 
-        //PUT: /api/assignments
+        /// <summary>
+        /// Update the record by their Id
+        /// </summary>
+        /// <param name="assignmentModel"></param>
+        /// <returns>Status 200 if updates Ok</returns>
+        /// <example>PUT: /api/assignments</example>
         [HttpPut]
+        [Authorize(Roles = "admin, manager")]
         public async Task<ActionResult> Update(AssignmentModel assignmentModel)
         {
             if (assignmentModel == null)
@@ -66,7 +88,11 @@ namespace TaskTrackingSystem.Controllers
             }
         }
 
-        //GET: /api/assignments/employee
+        /// <summary>
+        /// Get all assignment of current user
+        /// </summary>
+        /// <returns>List of assignments only for current authorized user</returns>
+        /// <example>GET: /api/assignments/employee </example>
         [HttpGet("Employee")]
         public async Task<ActionResult<IEnumerable<AssignmentModel>>> GetAssignmentsByEmployeeId()
         {
@@ -74,8 +100,14 @@ namespace TaskTrackingSystem.Controllers
             return Ok(_as.GetAssignmentsByEmployee(id));
         }
 
-        //POST: /api/assignments
+        /// <summary>
+        /// Writes new record of task in db
+        /// </summary>
+        /// <param name="assignmentModel"></param>
+        /// <returns>Status 201 if creates ok</returns>
+        /// <example>POST: /api/assignments</example>
         [HttpPost]
+        [Authorize(Roles = "admin, manager")]
         public async Task<ActionResult> Add([FromBody] AssignmentModel assignmentModel)
         {
             if (assignmentModel == null)

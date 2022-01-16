@@ -13,7 +13,6 @@ namespace TaskTrackingSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
     public class ProjectsController : ControllerBase
     {
         private readonly IProjectService _ps;
@@ -24,21 +23,36 @@ namespace TaskTrackingSystem.Controllers
             this._ps = ps;
         }
 
-        //GET: /api/projects
+        /// <summary>
+        /// Returns all projects from db
+        /// </summary>
+        /// <returns>Status 200</returns>
+        /// <example>GET: /api/projects</example>
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public ActionResult<IEnumerable<ProjectModel>> GetAll()
         {
             return Ok(_ps.GetAll());
         }
 
-        //GET: /api/projects/assignment
+        /// <summary>
+        /// Returns project that has assignment with entered id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Status 200</returns>
+        /// <example>GET: /api/projects/assignment</example>
         [HttpGet("assignment/{id}")]
+        [Authorize(Roles = "admin, manager")]
         public ActionResult<ProjectModel> GetByAssignmentId(int id)
         {
             return Ok(_ps.GetByAssignmentId(id));
         }
 
-        //GET: /api/projects/employee
+        /// <summary>
+        /// Returns all projects where current employee works on
+        /// </summary>
+        /// <returns>Status 200</returns>
+        /// <example>GET: /api/projects/employee</example>
         [HttpGet("employee")]
         public async Task<ActionResult<IEnumerable<ProjectModel>>> GetProjectsOfCurrentUser()
         {
@@ -46,15 +60,27 @@ namespace TaskTrackingSystem.Controllers
             return Ok(_ps.GetProjectsByEmployee(id));
         }
 
-        //POST: /api/projects/manager
+        /// <summary>
+        /// Change the managerId in some project
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns>Status 200</returns>
+        /// <example>POST: /api/projects/manager</example>
         [HttpPost("manager")]
+        [Authorize(Roles = "admin, manager")]
         public async Task<ActionResult<ProjectModel>> AssignManagerToProject([FromBody] AssignManagerToProjectModel model)
         {
             return Ok(await _ps.AssignManagerToProject(model));
         }
 
-        //PUT: /api/projects
+        /// <summary>
+        /// Updates project by id
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns>Status 20</returns>
+        /// <example>PUT: /api/projects</example>
         [HttpPut]
+        [Authorize(Roles = "admin, manager")]
         public async Task<ActionResult> Update(ProjectModel model)
         {
             if (model == null)
@@ -76,8 +102,14 @@ namespace TaskTrackingSystem.Controllers
             }
         }
 
-        //POST: /api/projects
+        /// <summary>
+        /// Add new project in db
+        /// </summary>
+        /// <param name="projectModel"></param>
+        /// <returns>Status 201</returns>
+        /// <example>POST: /api/projects</example>
         [HttpPost]
+        [Authorize(Roles = "admin, manager")]
         public async Task<ActionResult> Add([FromBody] ProjectModel projectModel)
         {
             if (projectModel == null)

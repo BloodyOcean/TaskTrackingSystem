@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace Administration.Account
 {
+    /// <summary>
+    /// This class is used for managing accounts
+    /// </summary>
     public sealed class UserService : IUserService
     {
        
@@ -28,12 +31,21 @@ namespace Administration.Account
             await _userManager.DeleteAsync(user);
         }
 
+        /// <summary>
+        /// Removes account from db with corresponding UserId
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task DeleteAccountByUserId(int id)
         {
             var user = _userManager.Users.SingleOrDefault(u => u.UserId == id);
             await _userManager.DeleteAsync(user);
         }
 
+        /// <summary>
+        /// Returns all accounts from db
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<ApplicationUser> GetAll()
         {
             return _userManager.Users;
@@ -45,6 +57,11 @@ namespace Administration.Account
             return u.UserId;
         }
 
+        /// <summary>
+        /// Checks email and password and if user exist, returns this user
+        /// </summary>
+        /// <param name="logon"></param>
+        /// <returns></returns>
         public async Task<ApplicationUser> Logon(Logon logon)
         {
             var user = _userManager.Users.SingleOrDefault(u => u.UserName == logon.Email);
@@ -56,6 +73,11 @@ namespace Administration.Account
             return await _userManager.CheckPasswordAsync(user, logon.Password) ? user : null;
         }
 
+        /// <summary>
+        /// Creates new user in db
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         public async Task Register(Register user)
         {
 

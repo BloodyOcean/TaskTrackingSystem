@@ -8,6 +8,10 @@ using System.Text;
 
 namespace BLL.Services
 {
+    /// <summary>
+    /// Service class allows operations
+    /// with statistic of completion of project
+    /// </summary>
     public class StatisticService : IStatisticService
     {
         private IUnitOfWork _uow;
@@ -21,6 +25,12 @@ namespace BLL.Services
             this._mapper = mapper;
         }
 
+        /// <summary>
+        /// Calculates completion of all projects
+        /// and sorts it in descending order
+        /// </summary>
+        /// <param name="count"></param>
+        /// <returns>Takes first N elements from sequence</returns>
         public IEnumerable<CompletionPercentage> GetCompletionPercentages(int count)
         {
             var res = _uow.ProjectRepository.GetAllWithDetails()
@@ -43,6 +53,12 @@ namespace BLL.Services
             return res;
         }
 
+        /// <summary>
+        /// Calculates completion of all projects made by current user
+        /// and sorts it in descending order
+        /// </summary>
+        /// <param name="count"></param>
+        /// <returns>Takes all elements from sequence</returns>
         public IEnumerable<CompletionPercentage> GetCompletionPercentagesByManager(int id)
         {
             var res = _uow.ProjectRepository.GetAllWithDetails()
