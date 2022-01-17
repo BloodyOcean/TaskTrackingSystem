@@ -43,7 +43,6 @@ namespace TaskTrackingSystem.Controllers
         /// <returns>Status 200</returns>
         /// <example>GET: /api/assignments</example>
         [HttpGet("{id}")]
-        [Authorize(Roles = "admin, manager")]
         public async Task<ActionResult<AssignmentModel>> GetById(int id)
         {
             return Ok(await _as.GetByIdAsync(id));
@@ -70,7 +69,6 @@ namespace TaskTrackingSystem.Controllers
         /// <returns>Status 200 if updates Ok</returns>
         /// <example>PUT: /api/assignments</example>
         [HttpPut]
-        [Authorize(Roles = "admin, manager")]
         public async Task<ActionResult> Update(AssignmentModel assignmentModel)
         {
             if (assignmentModel == null)

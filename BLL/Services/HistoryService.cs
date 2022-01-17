@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BLL.Interfaces;
 using BLL.Models;
+using BLL.Validation;
 using DAL.Enitites;
 using DAL.Interfaces;
 using System;
@@ -30,6 +31,13 @@ namespace BLL.Services
         public async Task AddAsync(HistoryModel model)
         {
             var element = _mapper.Map<History>(model);
+            var ass = await _uow.AssignmentRepository.GetByIdAsync((int)model.AssignmentId); // Corresponding assignment.
+
+            if ((element.ChangeDate > ass.ClosureDate) || (element.ChangeDate < ass.CreationDate))
+            {
+                throw new TaskTrackingException("Invalid data");
+            }
+
             await _uow.HistoryRepository.AddAsync(element);
             await _uow.SaveAsync();
         }

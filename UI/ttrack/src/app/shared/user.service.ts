@@ -1,10 +1,11 @@
 import { ThrowStmt } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { UserModel } from '../models/user.model';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Injectable({
@@ -15,7 +16,7 @@ export class UserService {
   readonly BaseURI = 'https://localhost:44356/api';
   user: UserModel;
 
-  constructor(private fb:FormBuilder, private http:HttpClient, private router:Router) {
+  constructor(private fb:FormBuilder, private http:HttpClient, private router:Router, private toastr:ToastrService) {
 
   }
 
@@ -40,11 +41,15 @@ export class UserService {
   }
 
   login(formData) {
-    return this.http.post(this.BaseURI + '/accounts/logon', formData, {responseType: 'text'}).subscribe(response=>{
+    return this.http.post(this.BaseURI + '/accounts/logon', formData, {responseType: 'text'}).subscribe(
+      response=>{
       localStorage.setItem('token', response);
       this.user = this.getUser(response);
       this.router.navigateByUrl('/home');
-   });;
+      },
+      (error:HttpErrorResponse) => {
+        this.toastr.error('Invalid password or email', 'Error');
+      });;
   }
 
   public getUser(token:string):UserModel {

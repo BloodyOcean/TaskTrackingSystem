@@ -105,7 +105,6 @@ namespace TaskTrackingSystem.Controllers
         /// <returns></returns>
         /// <example>GET: /api/assignment</example>
         [HttpGet("assignment/{id}")]
-        [Authorize(Roles = "admin, manager")]
         public ActionResult<ApplicationUser> GetUserByAssignmentId(int id)
         {
             var employeeId = _assignmentService.GetEmployeeId(id);

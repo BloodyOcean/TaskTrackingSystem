@@ -28,7 +28,34 @@ export class AddEditProjComponent implements OnInit {
     this.Description = this.proj.Description;
   }
 
+  checkInputOnAdd(): boolean {
+    if (this.Title == '' || this.Description == '') {
+      this.toastr.error('Some fields are empty', 'Error');
+      return false;
+    }
+
+    if (this.creationd == undefined || this.closured == undefined || this.creationd > this.closured) {
+      this.toastr.error('Time is incorrect', 'Error');
+      return false;
+    }
+
+    return true;
+  }
+
+  checkInputOnEdit(): boolean {
+    if (this.Status == undefined) {
+      this.toastr.error('Some fields are empty', 'Error');
+      return false;
+    }
+
+    return this.checkInputOnAdd();
+  }
+
   addProject() {
+    if (!this.checkInputOnAdd()) {
+      return;
+    }
+
     var item = {
       // Id: this.Id,
       Title: this.Title,
@@ -42,8 +69,10 @@ export class AddEditProjComponent implements OnInit {
   }
 
   updateProject() {
-
-    console.log(this.Status);
+    
+    if (!this.checkInputOnEdit()) {
+      return;
+    }
 
     var item = {
       Id: this.Id,

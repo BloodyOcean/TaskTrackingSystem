@@ -26,10 +26,26 @@ export class AddEditAssComponent implements OnInit {
     this.service.getStatusList().subscribe(data => {this.StatusList = data;})
   }
 
+  checkOnChange(): boolean {
+    if (this.status == undefined || this.comment == undefined || this.changed == undefined) {
+      this.toastr.error('Some fields are empty', 'Error');
+      return false;
+    }
+    const crd = new Date(this.ass.CreationDate);
+    const cld = new Date(this.ass.ClosureDate);
+    
+    if (this.changed > cld || this.changed < crd ) {
+      this.toastr.error('Invalid date', 'Error');
+      return false;
+    }
+
+    return true;
+  }
+
   change() {
-    console.log(this.status);
-    console.log(this.ass);
-    console.log(this.comment);
+    if (!this.checkOnChange()) {
+      return;
+    }
     
     this.ass.AssignmentStatusId = this.status;
     let val = {

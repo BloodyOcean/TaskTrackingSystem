@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BLL.Models;
+using BLL.Validation;
 using DAL.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -33,24 +34,33 @@ namespace BLL.Services
         /// <returns>Takes first N elements from sequence</returns>
         public IEnumerable<CompletionPercentage> GetCompletionPercentages(int count)
         {
-            var res = _uow.ProjectRepository.GetAllWithDetails()
-                .Select(p => new
-                {
-                    Project_id = p.Id,
-                    Project_name = p.Title,
-                    Ended_count = p.Assignments.Where(l => l.AssignmentStatus.Status == _taskFinishStatusName).Count(),
-                    Whole_count = p.Assignments.Count()
-                })
-                .Select(p => new CompletionPercentage
-                {
-                    ProjectId = p.Project_id,
-                    ProjectTitle = p.Project_name,
-                    Percentage = (double)p.Ended_count / (double)p.Whole_count
-                })
-                .OrderByDescending(p => p.Percentage)
-                .Take(count);
+            try
+            {
+                var res = _uow.ProjectRepository.GetAllWithDetails()
+                    .Select(p => new
+                    {
+                        Project_id = p.Id,
+                        Project_name = p.Title,
+                        Ended_count = p.Assignments.Where(l => l.AssignmentStatus.Status == _taskFinishStatusName).Count(),
+                        Whole_count = p.Assignments.Count()
+                    })
+                    .Select(p => new CompletionPercentage
+                    {
+                        ProjectId = p.Project_id,
+                        ProjectTitle = p.Project_name,
+                        Percentage = p.Whole_count == 0 ? 0.0 : (double)p.Ended_count / (double)p.Whole_count
+                    })
+                    .OrderByDescending(p => p.Percentage)
+                    .Take(count);
 
-            return res;
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw new TaskTrackingException(ex.Message);
+
+            }
+        
         }
 
         /// <summary>
@@ -61,24 +71,31 @@ namespace BLL.Services
         /// <returns>Takes all elements from sequence</returns>
         public IEnumerable<CompletionPercentage> GetCompletionPercentagesByManager(int id)
         {
-            var res = _uow.ProjectRepository.GetAllWithDetails()
-                .Where(p => p.ManagerId == id)
-                .Select(p => new
-                {
-                    Project_id = p.Id,
-                    Project_name = p.Title,
-                    Ended_count = p.Assignments.Where(l => l.AssignmentStatus.Status == _taskFinishStatusName).Count(),
-                    Whole_count = p.Assignments.Count()
-                })
-                .Select(p => new CompletionPercentage
-                {
-                    ProjectId = p.Project_id,
-                    ProjectTitle = p.Project_name,
-                    Percentage = (double)p.Ended_count / (double)p.Whole_count
-                })
-                .OrderByDescending(p => p.Percentage);
+            try
+            {
+                var res = _uow.ProjectRepository.GetAllWithDetails()
+                    .Where(p => p.ManagerId == id)
+                    .Select(p => new
+                    {
+                        Project_id = p.Id,
+                        Project_name = p.Title,
+                        Ended_count = p.Assignments.Where(l => l.AssignmentStatus.Status == _taskFinishStatusName).Count(),
+                        Whole_count = p.Assignments.Count()
+                    })
+                    .Select(p => new CompletionPercentage
+                    {
+                        ProjectId = p.Project_id,
+                        ProjectTitle = p.Project_name,
+                        Percentage = p.Whole_count == 0 ? 0.0 : (double)p.Ended_count / (double)p.Whole_count
+                    })
+                    .OrderByDescending(p => p.Percentage);
 
-            return res;
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw new TaskTrackingException(ex.Message);
+            }
         }
     }
 }

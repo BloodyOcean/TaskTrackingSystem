@@ -1,6 +1,7 @@
 ﻿using Administration.Account;
 using BLL.Models;
 using BLL.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -29,6 +30,7 @@ namespace TaskTrackingSystem.Controllers
         /// <returns>List of sorted percentages in descending order</returns>
         /// <example>GET: api/statistics</example>
         [HttpGet("{count}")]
+        [Authorize(Roles = "admin")]
         public ActionResult<IEnumerable<CompletionPercentage>> GetAllCompletionPercentage(int count)
         {
             return Ok(_ss.GetCompletionPercentages(count));
@@ -40,6 +42,7 @@ namespace TaskTrackingSystem.Controllers
         /// <returns>All list of percentages by current manager loged in</returns>
         /// <example>GET api/statistics/manager</example>
         [HttpGet("manager")]
+        [Authorize(Roles = "admin, manager")]
         public async Task<ActionResult<IEnumerable<CompletionPercentage>>> GetAllCompletionPercentageByManager()
         {
             var id = await _userService.GetCurrentUserIdAsync(User);

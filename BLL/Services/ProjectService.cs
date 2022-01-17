@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BLL.Interfaces;
 using BLL.Models;
+using BLL.Validation;
 using DAL.Enitites;
 using DAL.Interfaces;
 using System;
@@ -29,6 +30,11 @@ namespace BLL.Services
         /// <returns></returns>
         public async Task AddAsync(ProjectModel model)
         {
+            if (model.CreationDate > model.ClosureDate)
+            {
+                throw new TaskTrackingException("Dates are invalid");
+            }
+
             var element = _mapper.Map<Project>(model);
             await _uow.ProjectRepository.AddAsync(element);
             await _uow.SaveAsync();

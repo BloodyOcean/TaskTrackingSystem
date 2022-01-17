@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BLL.Interfaces;
 using BLL.Models;
+using BLL.Validation;
 using DAL.Enitites;
 using DAL.Interfaces;
 using System;
@@ -39,7 +40,7 @@ namespace BLL.Services
             }
             else
             {
-                throw new System.Exception($"Status {model.Status} already exist.");
+                throw new TaskTrackingException($"Status {model.Status} already exist.");
             }
         }
 

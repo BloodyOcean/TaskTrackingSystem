@@ -17,7 +17,7 @@ export class AddEditAccComponent implements OnInit {
   Description:string;
   Creation:string;
   Closure: string;
-  Status:boolean;
+  //Status:boolean;
 
   ProjectList:any=[];
   project:any;
@@ -35,7 +35,29 @@ export class AddEditAccComponent implements OnInit {
     this.service.getProjectsList().subscribe(data => {this.ProjectList = data;});
   }
 
+  checkInputOnAdd(): boolean {
+    if (this.Title == undefined || this.Description == undefined) {
+      this.toastr.error('Some fields are empty', 'Error');
+      return false;
+    }
+
+    if (this.creationd == undefined || this.closured == undefined || this.creationd > this.closured) {
+      this.toastr.error('Time is incorrect', 'Error');
+      return false;
+    }
+
+    if (this.project == undefined) {
+      this.toastr.error('Please choose project', 'Error');
+      return false;
+    }
+
+    return true;
+  }
+
   addAssignment() {
+    if (!this.checkInputOnAdd()) {
+      return;
+    }
 
     var item = {
       Title: this.Title,

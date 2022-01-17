@@ -42,7 +42,6 @@ namespace TaskTrackingSystem.Controllers
         /// <returns>Status 200</returns>
         /// <example>GET: /api/projects/assignment</example>
         [HttpGet("assignment/{id}")]
-        [Authorize(Roles = "admin, manager")]
         public ActionResult<ProjectModel> GetByAssignmentId(int id)
         {
             return Ok(_ps.GetByAssignmentId(id));

@@ -26,7 +26,6 @@ namespace TaskTrackingSystem.Controllers
         /// <returns>Status 200 if ok</returns>
         /// <example>GET: /api/statuses</example>
         [HttpGet]
-        [Authorize(Roles = "admin")]
         public ActionResult<IEnumerable<AssignmentStatusModel>> GetAll()
         {
             return Ok(_statusService.GetAll());
